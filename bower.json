@@ -1,0 +1,12 @@
+{
+  "name": "answers ",
+  "version": "0.0.1",
+  "description": "generate answers to a table data",
+  "dependencies": {
+    "jquery": "~2.2.0",
+    "angular": "~1.4.8",
+    "lodash": "~3.10.1",
+    "angular-ui-mask": "~1.6.7",
+    "bootstrap": "~3.3.6"
+  }
+}
