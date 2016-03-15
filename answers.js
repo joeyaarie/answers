@@ -84,7 +84,7 @@ angular.module('answers',[])
       }
 
       var answerPatterArray = answerPattern.toUpperCase().split(",");
-      var patternName = answerPatterArray.join(); console.log('joes big head',patternName);
+      var patternName = answerPatterArray.join();
       var calculatedPattern = {};
       var i = 0;
 
@@ -95,7 +95,7 @@ angular.module('answers',[])
         }
         else i++;
       }
-      console.log('calculatedPattern : ',calculatedPattern);
+
       var resultData = {};
       resultData[patternName] = calculatedPattern;
       $timeout(function() {
