@@ -1,0 +1,23 @@
+div()
+  .table-body(layout="column")
+    .top-bar.white-body(flex layout-padding)
+    .bottom-bar(flex layout="row" layout-padding)
+      div.white-body(flex="25" layout="column")
+        .headers(layout="row" layout-align="space-between center") 
+         span Patterns
+         i.mdi(layout-align="end" ng-click="addPattern = !addPattern;" ng-class="{'mdi-plus-circle': !addPattern, 'mdi-close-circle':addPattern}")
+        .pattern-body(flex)
+          .new-pattern(flex ng-if="addPattern") 
+            .container(layout="column" flex)
+              div
+                label Name :
+                input(placeholder="Name" ng-model="newPattern.name")
+              div
+                label Pattern : 
+                input(placeholder="Pattern" ng-model="newPattern.pattern" ng-change="delimitPattern(newPattern.pattern)")
+            .tools(layout="row" layout-align="center")
+              md-button.raised(ng-disabled="!newPattern.pattern || !newPattern.name" ng-click="createPattern(newPattern)") Save
+              md-button.raised(ng-click="close()") Cancel
+          include ../shared/pattern_list
+      span(flex="5")
+      div.white-body(flex="70")

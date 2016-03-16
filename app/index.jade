@@ -1,0 +1,12 @@
+doctype html
+html(lang="en" ng-app="Answers")
+  head
+    title Answers
+    include shared/links
+    include shared/scripts
+  body(layout-fill layout="column")
+    md-toolbar.toolbar-tools(layout="row")
+      span(flex="95")
+      md-button(flex="5" aria-label="More")
+        i.mdi.mdi-dots-vertical.large-icon(layout-align="end")
+    md-content.md-default-theme.no-bg.grey-body(layout-fill ui-view)

@@ -1,0 +1,30 @@
+{
+  "name": "answers-table",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "engines": {
+    "node": "0.10.31",
+    "npm": "1.4.23"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "browserify": "^13.0.0",
+    "cookie-parser": "^1.4.1",
+    "express": "^4.13.4",
+    "firebase": "^2.4.1",
+    "firebase-token-generator": "^2.0.0",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-jade": "^1.1.0",
+    "gulp-jshint": "^2.0.0",
+    "gulp-less": "^3.0.5",
+    "gulp-minify-html": "^1.0.6",
+    "gulp-nodemon": "^2.0.6",
+    "gulp-util": "^3.0.7",
+    "jshint": "^2.9.1",
+    "lodash": "^4.6.1",
+    "moment": "^2.12.0",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
