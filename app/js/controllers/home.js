@@ -1,16 +1,8 @@
-// var getCsvFile = docment.getElementById('getCsvFile');
-// get the file uploaded make sure the file is a csv format
-// read the input rows and columns
-// keep a matrics that is data[row][column]
-// create and empty array result[i]
-// iterate (i) through the number of data (n) by knowing data.length
-// split the answer alphabeth into its array of characters
-// take the index and the alphabeth in question and push to result[alphabeth][i]
-// create separate tables for the individual answers and create a export button
-// to export particular columns
+angular.module('answers.controllers')
+  .controller('HomeCtrl', ['$scope','$timeout', function($scope, $timeout) {
 
-angular.module('answers',[])
-.controller('HomeController', ['$scope','$timeout', function($scope, $timeout) {
+  // var ref = new Firebase("https://docs-examples.firebaseio.com/web/saving-data/fireblog");
+  console.log('got to the home controller');
 
   $scope.initializeFileHandler = function() {
     var csvFileElement = angular.element(document.querySelector('#getCsvFile'));
@@ -36,8 +28,6 @@ angular.module('answers',[])
     answers.computeTable(data);
   };
 
-
-// The answers app and methods
   var answers = {
     initialize: function() {
       var original;
