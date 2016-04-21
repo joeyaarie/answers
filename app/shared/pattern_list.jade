@@ -2,6 +2,8 @@ div
   .pattern-list(ng-repeat="item in allPatterns" layout="row" layout-align="space-between")
     .item-detail
       span {{item.name}}
-      span {{item.created}}
-    .item-tool
-      i.mdi.mdi-dots-vertical()
+      p.date-time created {{item.created | date:'yyyy-MM-dd HH:mm:ss Z' }}
+    .item-tool(layout="column" layout-align="space-between")
+      i.mdi.mdi-delete(ng-click="deleteItem(item)")
+      i.mdi.mdi-pencil(ng-click="editItem(item)")
+     

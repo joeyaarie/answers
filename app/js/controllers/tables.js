@@ -4,15 +4,7 @@ angular.module('answers.controllers')
 
     Refs.patterns.on('value', function(snap) {
       $scope.allPatterns = _.toArray(snap.val());
-      console.log($scope.allPatterns);
     });
-
-    function delimit(pattern) {
-      var insertPoint      = pattern.length - 1;
-      var delimitedPattern = pattern.substring(0, insertPoint) + ',';
-          delimitedPattern += pattern.substring(insertPoint, pattern.length);
-      return delimitedPattern;
-    }
 
     $scope.newPattern = {};
     $scope.delimitPattern = function(pattern) {
@@ -29,6 +21,14 @@ angular.module('answers.controllers')
           Toast("Successfully created new answers pattern");
         }
       });
+    };
+
+    $scope.deleteItem = function(item) {
+      console.log('delete item : ',item);
+    };
+
+    $scope.editItem = function(item) {
+      console.log('edit item : ',item);
     };
 
   }
