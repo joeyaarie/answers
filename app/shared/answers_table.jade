@@ -1,6 +1,26 @@
-.headers(layout="row")
-  span Table Data
-  .table-solutions
+.headers(layout="column")
+  .table-header
+    span Table Values
+  .table-patterns(layout="row")
+    table()
+      thead()
+        tr()
+          th() A    
+          th() B    
+          th() C        
+          th() D   
+      |     
+      tbody()
+        tr(ng-repeat="rows in lookUpTable")
+          td(ng-repeat="cell in rows") {{cell}} 
+    table(ng-repeat="table in resultsTable")
+      thead()
+        tr()
+          th() {{table.name}}    
+      |     
+      tbody()
+        tr(ng-repeat="cell in table.data")
+          td() {{cell}} 
 
-  .table-patters
-    .patterns
+    md-table-pagination(md-limit='query.limit', md-limit-options='[5, 10, 15]', md-page='query.page', md-total='{{desserts.count}}', md-on-paginate='getDesserts', md-page-select='')
+

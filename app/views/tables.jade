@@ -19,7 +19,8 @@ div()
               md-button.raised(ng-disabled="!newPattern.pattern || !newPattern.name" ng-click="createPattern(newPattern)") Save
               md-button.raised(ng-click="close()") Cancel
               
-          include ../shared/pattern_list
+          .oldPatterns
+            include ../shared/pattern_list
       span(flex="5")
       div.white-body(flex="70")
         include ../shared/answers_table

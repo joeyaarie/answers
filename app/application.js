@@ -8,6 +8,7 @@ angular.module('answers.controllers', []);
 require('./js/services/refs.js');
 require('./js/services/toast.js');
 require('./js/services/authentication.js');
+require('./js/services/data-mock.js');
 
 /* load controllers */
 require('./js/controllers/home.js');
