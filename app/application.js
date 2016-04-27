@@ -22,7 +22,8 @@ window.Answers = angular.module("Answers", [
   'answers.filters',
   'answers.services',
   'ngAnimate',
-  'ngMaterial'
+  'ngMaterial',
+  '720kb.tooltips'
 ]);
 
 Answers.run(['$rootScope', '$state', 'Authentication', 'Refs','Toast',

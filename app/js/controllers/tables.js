@@ -21,10 +21,13 @@ angular.module('answers.controllers')
     });
 
     // calculates the results of any pattern added.
-    $scope.calculatePattern =  function(item) {
-      $scope.resultsTable.push(
-        MockData.computeResults(item, $scope.lookUpTable)
+    $scope.calculatePattern =  function(newPattern) {
+      var result = MockData.computeResults(
+        newPattern,
+        $scope.lookUpTable
       );
+      
+      $scope.resultsTable.push(result);
     };
 
     $scope.selectTab = function(tab) {
@@ -136,6 +139,11 @@ angular.module('answers.controllers')
       Refs.patterns.child(unHasedPattern.key).set(unHasedPattern, function() {
         Toast('Pattern has been updated');
       });
+    };
+
+    $scope.showTheEditInput = function(index) {
+      $scope.showItemDetailEdit = !$scope.showItemDetailEdit;
+      $scope.editIndex = index;
     };
 
     $scope.isLookUpInvalid = function(lookUp) { 

@@ -117,7 +117,6 @@ angular.module('answers.controllers')
       }
 
       answers.saveToLocalStorage(latestJson);
-      console.log('converted file to array table format');
     },
 
     csvToArray: function(strData) {

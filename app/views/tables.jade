@@ -4,11 +4,11 @@ div()
     .bottom-bar(flex layout="row" layout-padding)
       div.white-body(flex="25" layout="column")
         .headers(layout="row" layout-align="space-between center") 
-          .tables-creator( layout="row" layout-align="space-between")
-            md-button.tab(ng-click="selectTab('patterns-tab')" ng-class="{'tab-active': activeTab === 'patterns-tab'}") Patterns
-            md-button.tab(ng-click="selectTab('lookup-tab')" ng-class="{'tab-active': activeTab === 'lookup-tab'}") LookUp 
-            md-button(layout-align="end" ng-click="openNewPatternTray()")
-              i.mdi(ng-class="{'mdi-plus-circle': !addPattern, 'mdi-close-circle':addPattern}")
+          .tables-creator(flex layout="row" layout-align="space-between")
+            .tab(flex="40" ng-click="selectTab('patterns-tab')" ng-class="{'tab-active': activeTab === 'patterns-tab'}") Patterns
+            .tab(flex="40" ng-click="selectTab('lookup-tab')" ng-class="{'tab-active': activeTab === 'lookup-tab'}") Look Up 
+            .tab.plus-btn(flex="20" layout-align="end" ng-click="openNewPatternTray()")
+              i.mdi(ng-class="{'mdi-plus': !addPattern, 'mdi-minus':addPattern}")
         .pattern-body(flex ng-if="activeTab === 'patterns-tab'")
           .new-pattern(flex ng-if="addPattern") 
             .container(layout="column" flex)
@@ -28,7 +28,7 @@ div()
                   i.mdi.mdi-check(ng-click="saveItemEdit(item)")
               .item-tool(layout="row" layout-align="space-between")
                 i.mdi.mdi-math-compass(ng-click="calculatePattern(item)")
-                i.mdi.mdi-pencil(ng-click="showItemDetailEdit = !showItemDetailEdit;")
+                i.mdi.mdi-pencil(ng-click="showItemDetailEdit = !showItemDetailEdit")
                 i.mdi.mdi-delete(ng-click="deletePattern(item)")
 
         .lookup-body(flex ng-if="activeTab === 'lookup-tab'")
