@@ -1,26 +1,4 @@
 div.container.column(ng-controller="HomeCtrl")
-  div
-    section.row.input-section(ng-init='initializeFileHandler()')
-      .col-md-6
-        button.btn.btn-primary(ng-click='addAnswerPattern()') Add Answer Pattern
-        button.btn.btn-primary(ng-click='removeAnswerPattern()') Remove Answer Pattern
-        input#getCsvFile(type='file', name='name', accept='.csv')
-      .col-md-6
-        ul.answer-patterns.col-md-12
-          li.row(ng-repeat='pattern in patterns')
-            .form-group.col-md-8
-              .input-group
-                .input-group-addon {{pattern.patternIndex}}
-                input.form-control(type='text', ng-model='pattern.pattern', placeholder='X,X,X,X... answer pattern')
-                .input-group-addon
-            // <button class="btn btn-primary calculateAnswerTable" onclick="answers.computeTable()"> Calculate Answer </button>
-            button.calculateAnswerTable.col-md-4.btn.btn-primary(ng-disabled='!pattern.pattern', ng-click='computeTable(pattern)')  Calculate Answer 
-    section.output-section
-      span.col-md-12.answers-table-heading Answers Table
-      .row
-        .original-table.col-md-4
-        .answers-table.col-md-8
-          table
-            th
-            tr(ng-repeat='result in allResults')
-              span {{result}}
+  .centralized(layout-align="center center")
+    h5 HOME you should go to 
+    a(href="/tables") tables

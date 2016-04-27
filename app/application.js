@@ -15,6 +15,9 @@ require('./js/controllers/home.js');
 require('./js/controllers/login.js');
 require('./js/controllers/tables.js');
 
+/* load directives */
+require('./js/directives/logout.js');
+
 window.Answers = angular.module("Answers", [
   'ui.router',
   'answers.controllers',

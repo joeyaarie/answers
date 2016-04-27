@@ -11,7 +11,6 @@ angular.module('answers.controllers')
     $scope.showItemDetailEdit = false;
     $scope.activeTab = 'patterns-tab';
 
-    $scope.tableData   = MockData.getResultsTable();
     $scope.lookUpTable = MockData.getLookUpTable();
 
     Refs.patterns.on('value', function(snap) {
@@ -26,7 +25,10 @@ angular.module('answers.controllers')
         newPattern,
         $scope.lookUpTable
       );
-      
+
+      var isPresent = _.where($scope.resultsTable, result).length;
+      if(isPresent)
+        return;
       $scope.resultsTable.push(result);
     };
 

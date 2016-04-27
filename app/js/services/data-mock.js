@@ -1,66 +1,6 @@
 angular.module('answers.services')
   .factory('MockData', ['$mdToast', '$timeout', function($mdToast, $timeout){
     return {
-      getResultsTable: function() {
-        var results = [
-          {
-            'A':0,
-            'B':1,
-            'C':0,
-            'D':0,
-            'pat1':1,
-            'pat2':1,
-            'pat3':0,
-            'pat4':0,
-            'pat5':1
-          },
-          {
-            'A':0,
-            'B':1,
-            'C':0,
-            'D':0,
-            'pat1':1,
-            'pat2':1,
-            'pat3':0,
-            'pat4':0,
-            'pat5':1
-          },
-          {
-            'A':0,
-            'B':1,
-            'C':0,
-            'D':0,
-            'pat1':1,
-            'pat2':1,
-            'pat3':0,
-            'pat4':0,
-            'pat5':1
-          },
-          {
-            'A':1,
-            'B':1,
-            'C':0,
-            'D':1,
-            'pat1':0,
-            'pat2':1,
-            'pat3':1,
-            'pat4':0,
-            'pat5':0
-          },
-          {
-            'A':0,
-            'B':1,
-            'C':1,
-            'D':1,
-            'pat1':0,
-            'pat2':0,
-            'pat3':1,
-            'pat4':1,
-            'pat5':1
-          }
-        ];
-        return results;
-      },
       getLookUpTable: function() {
         var lookUp = [
           {
@@ -170,7 +110,7 @@ angular.module('answers.services')
 
           arrData[arrData.length - 1].push(strMatchedValue);
         }
-        
+
         return (arrData);
       }
     };

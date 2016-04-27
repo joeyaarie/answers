@@ -11,142 +11,129 @@ angular.module('answers.controllers')
     $scope.allResults = [];
   };
 
-  $scope.addAnswerPattern = function() {
-    var newPattern = {
-      pattern:"",
-      patternIndex: $scope.patterns.length
-    };
-
-    $scope.patterns.push(newPattern);
+  $scope.logout = function() {
+    console.log('clicked on the logout button');
   };
 
-  $scope.removeAnswerPattern = function() {
-    $scope.patterns.pop();
-  };
+  // var answers = {
+  //   initialize: function() {
+  //     var original;
+  //     $("#getCsvFile").on('change',answers.loadCsvFile);
+  //   },
 
-  $scope.computeTable = function(data) {
-    answers.computeTable(data);
-  };
+  //   saveToLocalStorage: function(data) {
 
-  var answers = {
-    initialize: function() {
-      var original;
-      $("#getCsvFile").on('change',answers.loadCsvFile);
-    },
+  //     if(localStorage) {
+  //       localStorage.setItem('json_original', JSON.stringify(data));
+  //     }
 
-    saveToLocalStorage: function(data) {
+  //     // answers.populateDataTable(data.data);
+  //     original = data.data;
 
-      if(localStorage) {
-        localStorage.setItem('json_original', JSON.stringify(data));
-      }
+  //   },
 
-      // answers.populateDataTable(data.data);
-      original = data.data;
+  //   loadCsvFile: function() {
+  //     var file = document.querySelector('#getCsvFile').files[0];
 
-    },
+  //     if(file) {
+  //       var reader = new FileReader();
+  //       reader.readAsText(file);
+  //     }
 
-    loadCsvFile: function() {
-      var file = document.querySelector('#getCsvFile').files[0];
+  //     reader.onload = function(event) {
+  //       var textFile =  event.target.result;
+  //       answers.convertCsvToJsonData(textFile);
+  //     };
 
-      if(file) {
-        var reader = new FileReader();
-        reader.readAsText(file);
-      }
+  //   },
 
-      reader.onload = function(event) {
-        var textFile =  event.target.result;
-        answers.convertCsvToJsonData(textFile);
-      };
+  //   computeTable: function(data) {
+  //     var answerPattern = data.pattern;
 
-    },
+  //     if(answerPattern.length < 1) {
+  //       alert("please enter the answer array separated by comma ','");
+  //       return;
+  //     }
 
-    computeTable: function(data) {
-      var answerPattern = data.pattern;
+  //     if(original.length < 1) {
+  //       alert("you have not loaded an answer sheet")
+  //       return;
+  //     }
 
-      if(answerPattern.length < 1) {
-        alert("please enter the answer array separated by comma ','");
-        return;
-      }
+  //     var answerPatterArray = answerPattern.toUpperCase().split(",");
+  //     var patternName = answerPatterArray.join();
+  //     var calculatedPattern = {};
+  //     var i = 0;
 
-      if(original.length < 1) {
-        alert("you have not loaded an answer sheet")
-        return;
-      }
+  //     for(var j = 0; j < original.length; j++) {
+  //       calculatedPattern[j] = original[j][answerPatterArray[i]];
+  //       if(i === answerPatterArray.length - 1) {
+  //         i = 0;
+  //       }
+  //       else i++;
+  //     }
 
-      var answerPatterArray = answerPattern.toUpperCase().split(",");
-      var patternName = answerPatterArray.join();
-      var calculatedPattern = {};
-      var i = 0;
+  //     var resultData = {};
+  //     resultData[patternName] = calculatedPattern;
+  //     $timeout(function() {
+  //       $scope.allResults.push(resultData);
+  //       console.log('all results here to see',$scope.allResults);
+  //     });
+  //   },
 
-      for(var j = 0; j < original.length; j++) {
-        calculatedPattern[j] = original[j][answerPatterArray[i]];
-        if(i === answerPatterArray.length - 1) {
-          i = 0;
-        }
-        else i++;
-      }
+  //   convertCsvToJsonData: function(csvFile) {
+  //     var lines = answers.csvToArray(csvFile),
+  //         result = [],
+  //         headers=lines[0];
 
-      var resultData = {};
-      resultData[patternName] = calculatedPattern;
-      $timeout(function() {
-        $scope.allResults.push(resultData);
-        console.log('all results here to see',$scope.allResults);
-      });
-    },
+  //     for(var i=1; i<lines.length; i++) {
 
-    convertCsvToJsonData: function(csvFile) {
-      var lines = answers.csvToArray(csvFile),
-          result = [],
-          headers=lines[0];
+  //       obj = {},
+  //       currentline=lines[i];
 
-      for(var i=1; i<lines.length; i++) {
+  //       for(var j=0;j<headers.length;j++){
+  //         obj[headers[j]] = currentline[j];
+  //       }
 
-        obj = {},
-        currentline=lines[i];
+  //       result.push(obj);
+  //     }
 
-        for(var j=0;j<headers.length;j++){
-          obj[headers[j]] = currentline[j];
-        }
+  //     var latestJson = {
+  //       time: new Date(),
+  //       data: result
+  //     }
 
-        result.push(obj);
-      }
+  //     answers.saveToLocalStorage(latestJson);
+  //   },
 
-      var latestJson = {
-        time: new Date(),
-        data: result
-      }
+  //   csvToArray: function(strData) {
+  //     var strDelimiter = ",",
+  //         objPattern = new RegExp((
+  //           "(\\" + strDelimiter + "|\\r?\\n|\\r|^)" +
+  //           "(?:\"([^\"]*(?:\"\"[^\"]*)*)\"|" +
+  //           "([^\"\\" + strDelimiter + "\\r\\n]*))"),
+  //          "gi");
 
-      answers.saveToLocalStorage(latestJson);
-    },
+  //     var arrData = [[]];
+  //     var arrMatches = null;
 
-    csvToArray: function(strData) {
-      var strDelimiter = ",",
-          objPattern = new RegExp((
-            "(\\" + strDelimiter + "|\\r?\\n|\\r|^)" +
-            "(?:\"([^\"]*(?:\"\"[^\"]*)*)\"|" +
-            "([^\"\\" + strDelimiter + "\\r\\n]*))"),
-           "gi");
+  //     while (arrMatches = objPattern.exec(strData)) {
+  //       var strMatchedDelimiter = arrMatches[1];
 
-      var arrData = [[]];
-      var arrMatches = null;
+  //       if (strMatchedDelimiter.length && (strMatchedDelimiter != strDelimiter)) {
+  //         arrData.push([]);
+  //       }
 
-      while (arrMatches = objPattern.exec(strData)) {
-        var strMatchedDelimiter = arrMatches[1];
+  //       if (arrMatches[2]) {
+  //         var strMatchedValue = arrMatches[2].replace(
+  //         new RegExp("\"\"", "g"), "\"");
+  //       } else {
+  //         var strMatchedValue = arrMatches[3];
+  //       }
 
-        if (strMatchedDelimiter.length && (strMatchedDelimiter != strDelimiter)) {
-          arrData.push([]);
-        }
-
-        if (arrMatches[2]) {
-          var strMatchedValue = arrMatches[2].replace(
-          new RegExp("\"\"", "g"), "\"");
-        } else {
-          var strMatchedValue = arrMatches[3];
-        }
-
-        arrData[arrData.length - 1].push(strMatchedValue);
-      }
-      return (arrData);
-    }
-  }
+  //       arrData[arrData.length - 1].push(strMatchedValue);
+  //     }
+  //     return (arrData);
+  //   }
+  // }
 }]);
