@@ -1,16 +1,22 @@
 angular.module('answers.controllers')
-.controller('TablesCtrl', ['$scope','Refs','Toast','MockData',
-  function($scope, Refs, Toast, MockData) {
+.controller('TablesCtrl', ['$scope','Refs','Toast','MockData','$timeout',
+  function($scope, Refs, Toast, MockData, $timeout) {
 
-    $scope.allPatterns = []; 
-    $scope.newPattern  = {};
+    $scope.allPatterns  = []; 
+    $scope.newPattern   = {};
+    $scope.newLookUp    = {};
     $scope.resultsTable = [];
+    $scope.addPattern     = false;
+    $scope.edittingLookUp = false;
+    $scope.activeTab = 'patterns-tab';
 
     $scope.tableData   = MockData.getResultsTable();
     $scope.lookUpTable = MockData.getLookUpTable();
 
     Refs.patterns.on('value', function(snap) {
-      $scope.allPatterns  = _.toArray(keyUpArraysObjects(snap.val()));
+      $timeout(function() {
+        $scope.allPatterns  = _.toArray(keyUpArraysObjects(snap.val()));
+      });
     });
 
     // calculates the results of any pattern added.
@@ -20,6 +26,10 @@ angular.module('answers.controllers')
       );
     };
 
+    $scope.selectTab = function(tab) {
+      $scope.activeTab = tab;
+    };
+    
     function keyUpArraysObjects(array) {
       for(var prop in array) {
         if(!array[prop].key)
@@ -28,16 +38,24 @@ angular.module('answers.controllers')
       return array;
     };
 
-    function getTableKeys(table) {
-      return table.hasOwnProperty? {key: Object.keys(table), data: table} : table;
+    $scope.openNewPatternTray = function() {
+      $scope.newPattern = {};
+      $scope.newLookUp  = {};
+      $scope.addPattern     = !$scope.addPattern;
+      $scope.edittingLookUp = false;
     };
 
     function combineResultAndAnswerTable() {
       if($scope.allPatterns.length) {
+        $scope.resultsTable = [];
         $scope.allPatterns.forEach(function(pattern) {
           $scope.calculatePattern(pattern);
         });
       }
+    };
+
+    $scope.removeFromResultsTable = function(index) {
+     $scope.resultsTable.splice(index, 1);
     };
 
     $scope.saveSession = function() {
@@ -46,8 +64,13 @@ angular.module('answers.controllers')
       // save the session with the users desired name
     };
 
+    var isKeyPossible = function(pattern) {
+      var key = pattern.length > 1? pattern.split().pop() : pattern;
+      return _.contains(Object.keys($scope.lookUpTable[0]), key);
+    };
+
     $scope.delimitPattern = function(pattern) {
-      if(pattern.length > 1) {
+      if(pattern.length > 0) {
         $scope.newPattern.pattern = pattern.toUpperCase();
       }
     };
@@ -62,14 +85,49 @@ angular.module('answers.controllers')
           $scope.calculatePattern(newPattern);
         }
       });
+    };
+
+    $scope.createLookUp = function(newLookUp) {
+      if($scope.isLookUpInvalid(newLookUp)) {
+        Toast('can not create lookup row, please check your values');
+        return;
+      }
+
+      if(!$scope.edittingLookUp) {
+        $scope.lookUpTable.push(newLookUp);
+      }
+
+      $scope.newLookUp = {};
+      $scope.addPattern = false;
+      combineResultAndAnswerTable();
+    };
+
+    $scope.editThisLookUpTableRow = function(row, index) {
+      $scope.activeTab  = 'lookup-tab';
+      $scope.addPattern = true;
+      $scope.newLookUp  = $scope.lookUpTable[index];
+      $scope.edittingLookUp = true;
+      $scope.edittingLookUpIndex = index;
+    };
+
+    $scope.removeLookUpRow = function(lookup) {
+      $scope.lookUpTable.splice($scope.edittingLookUpIndex,1);
+      $scope.edittingLookUp = false;
+      $scope.addPattern     = false;
+      combineResultAndAnswerTable();
+    };
+
+    $scope.deletePattern = function(pattern) {
+      Refs.patterns.child(pattern.key).remove();
+    };
+
+    $scope.editPattern = function(pattern) {
 
     };
 
-    $scope.deleteItem = function(item) {
-      Refs.patterns.child(item.key).remove();
-    };
-
-    $scope.editItem = function(item) {
+    $scope.isLookUpInvalid = function(lookUp) { 
+      var lookUpValues = _.values(lookUp);
+      return _.contains(lookUpValues, "") || (lookUpValues.length < 4);
     };
 
   }

@@ -5,22 +5,29 @@
     table()
       thead()
         tr()
+          th() 
           th() A    
           th() B    
           th() C        
           th() D   
       |     
       tbody()
-        tr(ng-repeat="rows in lookUpTable")
-          td(ng-repeat="cell in rows") {{cell}} 
-    table(ng-repeat="table in resultsTable")
-      thead()
-        tr()
-          th() {{table.name}}    
-      |     
-      tbody()
-        tr(ng-repeat="cell in table.data")
-          td() {{cell}} 
+        tr.table-rows(ng-repeat="rows in lookUpTable" ng-click="editThisLookUpTableRow(rows, $index)")
+          td.table-cell(layout="row")
+            //- i.mdi.mdi-close-circle(ng-click="removeLookUpRow($index)")
+            | {{$index +1}}
+          td.table-cell(ng-repeat="cell in rows") {{cell}} 
+    .result-tables(ng-repeat="table in resultsTable")
+      .table-lines
+        table
+          i.mdi.mdi-close-circle(ng-click="removeFromResultsTable($index)")
+          thead()
+            tr()
+              th() {{table.name}}    
+          |     
+          tbody()
+            tr(ng-repeat="cell in table.data")
+              td.table-cell() {{cell}} 
 
     md-table-pagination(md-limit='query.limit', md-limit-options='[5, 10, 15]', md-page='query.page', md-total='{{desserts.count}}', md-on-paginate='getDesserts', md-page-select='')
 

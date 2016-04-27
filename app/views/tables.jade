@@ -4,23 +4,49 @@ div()
     .bottom-bar(flex layout="row" layout-padding)
       div.white-body(flex="25" layout="column")
         .headers(layout="row" layout-align="space-between center") 
-         span Patterns
-         i.mdi(layout-align="end" ng-click="addPattern = !addPattern;" ng-class="{'mdi-plus-circle': !addPattern, 'mdi-close-circle':addPattern}")
-        .pattern-body(flex)
+          .tables-creator
+            span.tab(ng-click="selectTab('patterns-tab')" ng-class="{'tab-active': activeTab === 'patterns-tab'}") Patterns
+            span /
+            span.tab(ng-click="selectTab('lookup-tab')" ng-class="{'tab-active': activeTab === 'lookup-tab'}") LookUp 
+
+          i.mdi(layout-align="end" ng-click="openNewPatternTray()" ng-class="{'mdi-plus-circle': !addPattern, 'mdi-close-circle':addPattern}")
+        .pattern-body(flex ng-if="activeTab === 'patterns-tab'")
           .new-pattern(flex ng-if="addPattern") 
             .container(layout="column" flex)
-              div
-                label Name :
                 input(placeholder="Name" ng-model="newPattern.name")
-              div
-                label Pattern : 
                 input(placeholder="Pattern" ng-model="newPattern.pattern" ng-change="delimitPattern(newPattern.pattern)")
             .tools(layout="row" layout-align="center")
               md-button.raised(ng-disabled="!newPattern.pattern || !newPattern.name" ng-click="createPattern(newPattern)") Save
-              md-button.raised(ng-click="close()") Cancel
+              md-button.raised(ng-click="openNewPatternTray()") Cancel
               
           .oldPatterns
-            include ../shared/pattern_list
+            .pattern-list(ng-repeat="item in allPatterns" layout="row" layout-align="space-between")
+              .item-detail
+                span {{item.name}} ({{item.pattern}})
+                p.date-time created {{item.created | date:'yyyy-MM-dd HH:mm:ss Z' }}
+              .item-tool(layout="column" layout-align="space-between")
+                i.mdi.mdi-math-compass(ng-click="calculatePattern(item)")
+                i.mdi.mdi-delete(ng-click="deleteItem(item)")
+                i.mdi.mdi-pencil(ng-click="editItem(item)")
+
+        .lookup-body(flex ng-if="activeTab === 'lookup-tab'")
+          .newLookUp(layout="column" ng-if="addPattern")
+            .container(layout="row")
+              span Row No: {{lookUpTable.length +1}}
+              label A:
+              input(ng-model="newLookUp.A" type='number' max='1')
+              label B:
+              input(ng-model="newLookUp.B" type='number' max='1') 
+              label C:
+              input(ng-model="newLookUp.C" type='number' max='1') 
+              label D:
+              input(ng-model="newLookUp.D" type='number' max='1')
+            .tools(layout="row" layout-align="center")
+              md-button.raised(ng-disabled="false" ng-click="createLookUp(newLookUp)") Save
+              md-button.raised(ng-if="edittingLookUp" ng-click="removeLookUpRow(newLookUp)") Delete
+              md-button.raised(ng-click="openNewPatternTray()") Cancel
+
+
       span(flex="5")
       div.white-body(flex="70")
         include ../shared/answers_table

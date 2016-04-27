@@ -16,7 +16,67 @@ body  {
   background-color: #fff;
 }
 
+.lookup-body {
+  .newLookUp {
+    .container {
+      input {
+        width: 35px;
+      }
+    }
+  }
+}
 
+.table-patterns {
+  .table-rows {
+    &:hover {
+      background-color: #eee;
+    }
+  }
+  .table-cell {
+    font-size: 15px;
+    padding: 10px;
+    border-bottom: 1px solid #CCD4E2;
+    border-right: 1px solid #CCD4E2;
+    position: relative;
+
+    .mdi {
+      font-size: 18px !important;
+      opacity: 0;
+      position: absolute;
+      transition: opacity .3s;
+      left: -17px;
+    }
+
+    &:hover {
+      background-color: #eee; 
+      .mdi {
+        opacity: 10;
+        transition: opacity .3s;
+      }
+    }
+  }
+}
+
+.result-tables {
+  .table-lines {
+    position: relative !important;
+    .mdi {
+      font-size: 18px !important;
+      opacity: 0;
+      position: absolute;
+      transition: opacity .3s;
+      left: 85%;
+      top: -5%;
+    }
+    &:hover {
+      background-color: #eee;
+      .mdi {
+        opacity: 10;
+        transition: opacity .3s;
+      }
+    }
+  }
+}
 .answer-patterns {
   list-style: none;
 }
@@ -60,6 +120,17 @@ body  {
   padding: 5px;
 }
 
+.tables-creator {
+  .tab {
+    &.tab-active {
+      background-color: green; 
+      color: #fff;
+    }
+    &:hover {
+      color: #555;
+    }
+  }
+}
 .pattern-body {
   padding: 10px;
 }
