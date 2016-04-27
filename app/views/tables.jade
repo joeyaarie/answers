@@ -26,8 +26,8 @@ div()
                 p.date-time created {{item.created | date:'yyyy-MM-dd HH:mm:ss Z' }}
               .item-tool(layout="column" layout-align="space-between")
                 i.mdi.mdi-math-compass(ng-click="calculatePattern(item)")
-                i.mdi.mdi-delete(ng-click="deleteItem(item)")
-                i.mdi.mdi-pencil(ng-click="editItem(item)")
+                i.mdi.mdi-delete(ng-click="deletePattern(item)")
+                i.mdi.mdi-pencil(ng-click="editPattern(item)")
 
         .lookup-body(flex ng-if="activeTab === 'lookup-tab'")
           .newLookUp(layout="column" ng-if="addPattern")

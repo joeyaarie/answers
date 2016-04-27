@@ -122,7 +122,6 @@ angular.module('answers.controllers')
     };
 
     $scope.editPattern = function(pattern) {
-
     };
 
     $scope.isLookUpInvalid = function(lookUp) { 
