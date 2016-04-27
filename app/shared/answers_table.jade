@@ -8,12 +8,6 @@
       i.mdi.mdi-content-save-all
     md-button.tool(aria-label="" flex ng-click="deleteSession()" ng-disabled="false")
       i.mdi.mdi-delete
-    //- .tool.dropdown(flex ng-click="exportTable()" ng-disabled="false" layout-align="space-between" layout="row")
-      label Export:
-      select(ng-model="selectedOption")
-        option(ng-value="")
-        option(ng-value="option" ng-repeat="option in exportOptions") {{ option.name }}
-      i.mdi.mdi-export(ng-disabled="!selectedOption")
     md-button.tool(aria-label="" flex ng-click="exportTable()" ng-disabled="false")
      i.mdi.mdi-export()
 
@@ -31,7 +25,6 @@
       tbody()
         tr.table-rows(ng-repeat="rows in lookUpTable" ng-click="editThisLookUpTableRow(rows, $index)")
           td.table-cell(layout="row")
-            //- i.mdi.mdi-close-circle(ng-click="removeLookUpRow($index)")
             | {{$index +1}}
           td.table-cell(ng-repeat="cell in rows") {{cell}} 
     .result-tables(ng-repeat="table in resultsTable")

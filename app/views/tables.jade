@@ -20,7 +20,7 @@ div()
               
           .oldPatterns
             .pattern-list(ng-repeat="item in allPatterns" layout="row" layout-align="space-between")
-              .item-detail(ng-hide="showItemDetailEdit" flex)
+              .item-detail(ng-if="!showItemDetailEdit" flex)
                 span {{item.name}} ({{item.pattern}})
               .item-detail-edit(ng-if="showItemDetailEdit" flex layout="row")
                 input(ng-model="item.pattern")

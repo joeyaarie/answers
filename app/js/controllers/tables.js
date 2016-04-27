@@ -8,6 +8,7 @@ angular.module('answers.controllers')
     $scope.resultsTable = [];
     $scope.addPattern     = false;
     $scope.edittingLookUp = false;
+    $scope.showItemDetailEdit = false;
     $scope.activeTab = 'patterns-tab';
 
     $scope.tableData   = MockData.getResultsTable();
@@ -61,8 +62,6 @@ angular.module('answers.controllers')
       { id: 3, name: 'Result Table' }
     ];
     $scope.selectedOption = $scope.exportOptions[0];
-
-    
 
     $scope.removeFromResultsTable = function(index) {
      $scope.resultsTable.splice(index, 1);
@@ -136,7 +135,6 @@ angular.module('answers.controllers')
       unHasedPattern.pattern = unHasedPattern.pattern.toUpperCase();
       Refs.patterns.child(unHasedPattern.key).set(unHasedPattern, function() {
         Toast('Pattern has been updated');
-        $scope.showItemDetailEdit = false;
       });
     };
 
