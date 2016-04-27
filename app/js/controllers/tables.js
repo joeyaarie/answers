@@ -54,6 +54,16 @@ angular.module('answers.controllers')
       }
     };
 
+    // create the options for export
+    $scope.exportOptions = [
+      { id: 1, name: 'Look Up' },
+      { id: 2, name: 'Session' },
+      { id: 3, name: 'Result Table' }
+    ];
+    $scope.selectedOption = $scope.exportOptions[0];
+
+    
+
     $scope.removeFromResultsTable = function(index) {
      $scope.resultsTable.splice(index, 1);
     };
@@ -121,7 +131,13 @@ angular.module('answers.controllers')
       Refs.patterns.child(pattern.key).remove();
     };
 
-    $scope.editPattern = function(pattern) {
+    $scope.saveItemEdit = function(pattern) {
+      var unHasedPattern = angular.copy(pattern);
+      unHasedPattern.pattern = unHasedPattern.pattern.toUpperCase();
+      Refs.patterns.child(unHasedPattern.key).set(unHasedPattern, function() {
+        Toast('Pattern has been updated');
+        $scope.showItemDetailEdit = false;
+      });
     };
 
     $scope.isLookUpInvalid = function(lookUp) { 

@@ -1,6 +1,23 @@
 .headers(layout="column")
-  .table-header
-    span Table Values
+  .table-header(flex layout="rows" layout-align="space-between")
+    md-button.tool(aria-label="" flex ng-click="newLookUpTable()" ng-disabled="false")
+      i.mdi.mdi-table-large
+    md-button.tool(aria-label="" flex ng-click="importLookUpTable()" ng-disabled="false")
+      i.mdi.mdi-import
+    md-button.tool(aria-label="" flex ng-click="saveSession()" ng-disabled="false")
+      i.mdi.mdi-content-save-all
+    md-button.tool(aria-label="" flex ng-click="deleteSession()" ng-disabled="false")
+      i.mdi.mdi-delete
+    //- .tool.dropdown(flex ng-click="exportTable()" ng-disabled="false" layout-align="space-between" layout="row")
+      label Export:
+      select(ng-model="selectedOption")
+        option(ng-value="")
+        option(ng-value="option" ng-repeat="option in exportOptions") {{ option.name }}
+      i.mdi.mdi-export(ng-disabled="!selectedOption")
+    md-button.tool(aria-label="" flex ng-click="exportTable()" ng-disabled="false")
+     i.mdi.mdi-export()
+
+    
   .table-patterns(layout="row")
     table()
       thead()

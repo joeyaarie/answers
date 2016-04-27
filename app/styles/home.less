@@ -2,6 +2,10 @@ body  {
   background-color: #CCD4E2;
 }
 
+i {
+  color: #555 !important;
+}
+
 .grey-body {
   background-color: #EDEDED !important;
 }
@@ -14,6 +18,19 @@ body  {
   padding: 20px;
   min-height: 400px;
   background-color: #fff;
+}
+
+.table-header {
+  .tool {
+    font-size: 15px;
+    border: 1px solid #EFEFEF;
+    margin: 2px;
+    i {
+      font-size: 30px !important;
+    }
+    .dropdown {
+    }
+  }
 }
 
 .lookup-body {
@@ -65,8 +82,8 @@ body  {
       opacity: 0;
       position: absolute;
       transition: opacity .3s;
-      left: 85%;
-      top: -5%;
+      left: 75%;
+      top: -3%;
     }
     &:hover {
       background-color: #eee;
@@ -91,18 +108,26 @@ body  {
 }
 
 .pattern-list {
-  border-left: 5px solid blue;
   font-size: 20px;
   margin-bottom: 5px;
-  padding: 0 0 0 10px;
+  padding:7px;
   background-color: #efefef;
  .item-tool {
     opacity: 0;
+    i {
+      padding: 5px;
+      border-radius: 50%;
+      margin-left: 3px;
+      border: 1px solid #ccc;
+    }
   }
   &:hover {
     .item-tool {
       opacity: .8;
     }
+  }
+  input {
+    text-transform: uppercase;
   }
 }
 .answers-table-heading {
@@ -123,8 +148,7 @@ body  {
 .tables-creator {
   .tab {
     &.tab-active {
-      background-color: green; 
-      color: #fff;
+      border:1px solid green;
     }
     &:hover {
       color: #555;
