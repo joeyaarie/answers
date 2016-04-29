@@ -54,13 +54,13 @@ div()
                     .container(layout="row")
                       span Row No: {{lookUpTable.length +1}}
                       label A:
-                      input(ng-model="newLookUp.A" type='number' max='1' min='0')
+                      input(ng-model="newLookUp.A" type='number' max='2' min='0')
                       label B:
-                      input(ng-model="newLookUp.B" type='number' max='1' min='0') 
+                      input(ng-model="newLookUp.B" type='number' max='2' min='0') 
                       label C:
-                      input(ng-model="newLookUp.C" type='number' max='1' min='0') 
+                      input(ng-model="newLookUp.C" type='number' max='2' min='0') 
                       label D:
-                      input(ng-model="newLookUp.D" type='number' max='1' min='0')
+                      input(ng-model="newLookUp.D" type='number' max='2' min='0')
                     .tools(layout="row" layout-align="center")
                       md-button.raised(ng-disabled="false" ng-click="createLookUp(newLookUp)") Save
                       md-button.raised(ng-if="edittingLookUp" ng-click="removeLookUpRow(newLookUp)") Delete
