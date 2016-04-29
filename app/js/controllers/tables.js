@@ -9,7 +9,7 @@ angular.module('answers.controllers')
     $scope.addPattern     = false;
     $scope.edittingLookUp = false;
     $scope.showItemDetailEdit = false;
-    $scope.activeTab = 'patterns-tab';
+    $scope.selectedIndex = 0;
 
     $scope.lookUpTable = MockData.getLookUpTable();
 
@@ -27,8 +27,10 @@ angular.module('answers.controllers')
       );
 
       var isPresent = _.where($scope.resultsTable, result).length;
-      if(isPresent)
+      if(isPresent) {
+        Toast('You have added this to the table');
         return;
+      }
       $scope.resultsTable.push(result);
     };
 
@@ -47,7 +49,7 @@ angular.module('answers.controllers')
     $scope.openNewPatternTray = function() {
       $scope.newPattern = {};
       $scope.newLookUp  = {};
-      $scope.addPattern     = !$scope.addPattern;
+      $scope.addPattern = !$scope.addPattern;
       $scope.edittingLookUp = false;
     };
 

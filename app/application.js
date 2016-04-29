@@ -53,6 +53,7 @@ Answers.run(['$rootScope', '$state', 'Authentication', 'Refs','Toast',
 /* application routes */
 Answers.config(['$stateProvider','$locationProvider',
  function($stateProvider, $locationProvider) {
+
   $locationProvider.html5Mode(true);
   $stateProvider
     .state('login', {
