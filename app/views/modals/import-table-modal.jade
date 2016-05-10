@@ -1,0 +1,26 @@
+md-dialog(aria-label="Edit Project" flex="35" flex-lg="35" flex-sm="100" flex-md="70")
+  md-toolbar
+    .md-toolbar-tools.md-template-header
+      h2 Import Look Up Table
+  md-dialog-content
+    .table-name(layout="column")
+      md-input-container
+        label Name:
+        input(ng-model="newTable.name" placeholder="enter a name for this table")
+    .table-content()
+      table.new-table(ng-if="newTable.table")
+        thead(flex) 
+          tr(flex)
+            th(flex) S/N 
+            th(flex) A    
+            th(flex) B
+            th(flex) C        
+            th(flex) D   
+        |     
+        tbody()
+          tr(ng-repeat="rows in newTable.table")
+            td() {{$index +1}}
+            td(ng-repeat="cell in rows") {{cell}} 
+  .md-actions(layout="row")
+    md-button(ng-click="cancel()") Cancel
+    md-button.md-primary.md-raised(ng-disabled="!newTable.table" ng-click="saveNewTable(newTable)") Save

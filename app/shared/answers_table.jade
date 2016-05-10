@@ -1,9 +1,10 @@
 .headers(layout="column")
   .table-header(flex layout="rows" layout-align="space-between")
-    md-button.tool(aria-label="new look up" flex ng-click="newLookUpTable()" ng-disabled="false")
+    md-button.import.tool(aria-label="new look up" flex ng-click="createLookUpTable()" ng-disabled="false")
       i.mdi.mdi-table-large
     md-button.tool(aria-label="import data" flex ng-click="importLookUpTable()" ng-disabled="false")
-      i.mdi.mdi-import
+      input#getCsvFile(type="file"  accept=".csv")
+      i.mdi.mdi-import(ng-init="initializeFileHandler()")
     md-button.tool(aria-label="save session" flex ng-click="saveSession()" ng-disabled="false")
       i.mdi.mdi-content-save-all
     md-button.tool(aria-label="delete session" flex ng-click="deleteSession()" ng-disabled="false")
@@ -13,7 +14,8 @@
 
     
   .table-patterns(layout="row")
-    table.ans-table()
+    .empty-table(ng-if="!selectedLookUp.table") Select a look up table
+    table.ans-table(ng-if="selectedLookUp.table")
       thead() 
         tr()
           th() S/N 
@@ -23,7 +25,7 @@
           th() D   
       |     
       tbody()
-        tr(ng-repeat="rows in lookUpTable" ng-click="editThisLookUpTableRow(rows, $index)")
+        tr(ng-repeat="rows in selectedLookUp.table" ng-click="editThisLookUpTableRow(rows, $index)")
           td() {{$index +1}}
           td(ng-repeat="cell in rows") {{cell}} 
     .result-tables(ng-repeat="table in resultsTable")
@@ -39,4 +41,3 @@
               td() {{cell}} 
 
     md-table-pagination(md-limit='query.limit', md-limit-options='[5, 10, 15]', md-page='query.page', md-total='{{desserts.count}}', md-on-paginate='getDesserts', md-page-select='')
-

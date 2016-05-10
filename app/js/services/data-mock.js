@@ -56,7 +56,7 @@ angular.module('answers.services')
             j = 0;
 
         for(j; j < lookUpTable.length; j++) {
-          
+
           var value = lookUpTable[j][answerPatternArray[i]];
           var condition = angular.isUndefined(value);
           calculatedPattern[j] = condition? 'N' : value;
@@ -77,7 +77,7 @@ angular.module('answers.services')
         // this return is used to return just the calculated pattern
         // this should be commented out in case this is not used.
         return resultData;
-        
+
         // $timeout(function() {
         //   $scope.allResults.push(resultData);
         //   console.log('all results here to see',$scope.allResults);
@@ -112,6 +112,25 @@ angular.module('answers.services')
         }
 
         return (arrData);
+      },
+      convertCsvToJsonData: function(csvFile) {
+        var lines = this.csvToArray(csvFile),
+            result = [],
+            headers=lines[0];
+
+        for(var i=1; i<lines.length; i++) {
+
+          obj = {},
+          currentline=lines[i];
+
+          for(var j=0; j<headers.length; j++) {
+            obj[headers[j]] = currentline[j];
+          }
+
+          result.push(obj);
+        }
+
+        return result;
       }
     };
   }]);

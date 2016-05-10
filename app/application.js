@@ -15,6 +15,9 @@ require('./js/controllers/home.js');
 require('./js/controllers/login.js');
 require('./js/controllers/tables.js');
 
+/* load the modal controllers*/
+require('./js/controllers/modals/importTableCtrl.js');
+
 /* load directives */
 require('./js/directives/logout.js');
 
@@ -48,6 +51,17 @@ Answers.run(['$rootScope', '$state', 'Authentication', 'Refs','Toast',
   };
 
   Refs.root.onAuth($rootScope.authCallback);
+
+  $rootScope.$on('$routeChangeSuccess', function(event, nextRoute, currentRoute) {
+    // $rootScope.showMenu = AuthenticationFactory.isLogged;
+    // $rootScope.role = AuthenticationFactory.userRole;
+    // if the user is already logged in, take him to the home page
+    // if (AuthenticationFactory.isLogged == true && $location.path() == '/login') {
+    //   $location.path('/');
+    // }
+    console.log('this route just changed');
+  });
+
 }]);
 
 /* application routes */

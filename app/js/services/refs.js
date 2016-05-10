@@ -8,6 +8,7 @@ angular.module('answers.services')
         root: rootRef,
         users: rootRef.child('users'),
         patterns: rootRef.child('patterns'),
+        lookUps : rootRef.child('lookUps'),
         submissions: rootRef.child('submissions')
       };
     }
