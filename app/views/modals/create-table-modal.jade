@@ -40,4 +40,4 @@ md-dialog(aria-label="Edit Project" flex="35" flex-lg="35" flex-sm="100" flex-md
             
   .md-actions(layout="row")
     md-button(ng-click="cancel()") Cancel
-    md-button.md-primary.md-raised(ng-disabled="!newTable.name" ng-click="saveNewTable(newTable)") Save
+    md-button.md-primary.md-raised(ng-disabled="!newTable.name || !newTable.table.length" ng-click="saveNewTable(newTable)") Save
