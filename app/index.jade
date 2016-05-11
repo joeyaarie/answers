@@ -4,10 +4,13 @@ html(lang="en" ng-app="Answers")
     title Answers
     include shared/links
     include shared/scripts
-  body(layout-fill layout="column")
-    md-toolbar.toolbar-tools(layout="row")
-      span(flex="95")
-      md-button(flex="5" aria-label="More")
-        a(href="/logout")
-          i.mdi.mdi-dots-vertical.large-icon(layout-align="end")
-    md-content.md-default-theme.no-bg.grey-body(layout-fill ui-view)
+  body()
+    #wrapper(layout-fill layout="column")
+      #content
+        md-toolbar.toolbar-tools(layout="row")
+          span(flex="95")
+          md-button(flex="5" aria-label="More")
+            a(href="/logout")
+              i.mdi.mdi-dots-vertical.large-icon(layout-align="end")
+        md-content.md-default-theme.no-bg.grey-body(layout-fill ui-view)
+      #footer

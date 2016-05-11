@@ -3,5 +3,3 @@ module.exports = function (app, rootRef) {
     res.sendFile("index.html",{root:'./public'});
   });
 };
-
-

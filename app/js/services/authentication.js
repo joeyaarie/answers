@@ -12,6 +12,7 @@ angular.module('answers.services')
         logout: function() {
           Refs.root.unauth();
           $rootScope.currentUser = null;
+          $state.go('login');
         },
 
         auth: function(authData, cb) {

@@ -1,11 +1,32 @@
 body  {
-  background-color: #CCD4E2;
-  font: Lato, 'Helvetica', 'San Serif' !important;
+  background-color: #EDEDED;
+  font-family: Roboto,"Helvetica Neue",sans-serif !important;
 }
 
 .no-padding {
   padding: 0 !important;
 }
+
+.main-page-container {
+  width: 100%;
+  .landing-btns {
+    margin: auto auto;
+    a {
+      background-color: #ccc;
+      transition: background-color .3s;
+      border-radius: 5px;
+      margin: 5px 10px;
+      text-align: center;
+      padding: 10px 40px;
+      &:hover {
+        transition: background-color .3s;
+        background-color: #607D8B;
+        color: #efefef;
+      }
+    }
+  }
+}
+
 
 .empty-table {
   background-color: #FDE59E;
@@ -36,6 +57,7 @@ md-toolbar.md-default-theme  {
 }
 
 .white-body {
+  box-shadow:  0px 0px 5px -1px #607D8B;
   background-color: #FFFFFF !important;
 }
 
@@ -83,6 +105,7 @@ md-toolbar.md-default-theme  {
 .table-patterns {
   overflow-x: scroll;
   padding-top: 0.2em;
+  max-height: 300px;
   .table-rows {
     &:hover {
       background-color: #eee;
@@ -121,8 +144,8 @@ md-toolbar.md-default-theme  {
       opacity: 0;
       position: absolute;
       transition: opacity .3s;
-      left: 75%;
-      top: -3%;
+      right: -1px;
+      top: -3px;
     }
     &:hover {
       background-color: #eee;
@@ -181,27 +204,13 @@ md-toolbar.md-default-theme  {
 .headers {
   font-size: 30px;
   color: #202020;
-  font-family: Helvetica;
   text-align: center;
 }
 
 .tables-creator {
-  .tab {
-    font-size: 24px;
-    line-height: 45px;
-    margin-right: 2px;
-    &.tab-active {
-      background-color: #ECECEC;
-    }
-    &:hover {
-      color: #555;
-      background-color: #ECECEC;
-      transistion: background-color .3s;
-    }
-    .plus-btn {
-      margin-right: 0 !important;
-    }
-  }
+  box-shadow:  0px 0px 5px -1px #607D8B;
+  // border: 2px solid #607D8B;
+  padding-bottom: 5px;
 }
 .pattern-body, .lookup-body {
   padding: 10px;
@@ -218,10 +227,11 @@ md-toolbar.md-default-theme  {
 }
 
 .table-body {
-  padding: 40px;
   .top-bar {
+    box-shadow:  0px 0px 5px -1px #607D8B;
     margin: 20px;
     height: 60px;
+
     .top-section {
       border-left: 1px solid #efefef;
       padding: 6px;
@@ -328,4 +338,16 @@ md-toolbar.md-default-theme  {
       }
     }
   }
+}
+
+#footer {
+  position: absolute;
+  height: 150px;
+  width: 100%;
+  bottom: 0;
+  background-color: #607D8B
+}
+
+#wrapper {
+  height: 100%;
 }

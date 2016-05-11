@@ -1,2 +1,4 @@
-div.main-page-container(layout-fill)
-	a.st-buttons.red#login-button(ng-click="login()") Login/SignUp
+div.main-page-container()
+	.landing-btns(layout="row")
+		a.md-primary(ng-click="login()") Login
+		a.md-primary(ng-click="login()") SignUp

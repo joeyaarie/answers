@@ -47,17 +47,7 @@ angular.module('answers.controllers')
         templateUrl: 'views/modals/import-table-modal.html',
         targetEvent: event
       }).then(function(data) {
-
-        if (!data) {
-          Toast("you canceled creation of table");
-          return;
-        }
-
-        Refs.lookUps.push(angular.copy(data), function(error) {
-          if (!error) {
-            Toast("Successfully created look up pattern");
-          }
-        });
+        saveCreatedTable(data);
       });
     };
 
@@ -163,20 +153,20 @@ angular.module('answers.controllers')
       });
     };
 
-    $scope.createLookUp = function(newLookUp) {
-      if ($scope.isLookUpInvalid(newLookUp)) {
-        Toast('can not create lookup row, please check your values');
-        return;
-      }
-
-      if (!$scope.edittingLookUp) {
-        $scope.selectedLookUp.table.push(newLookUp);
-      }
-
-      $scope.newLookUp = {};
-      $scope.addPattern = false;
-      combineResultAndAnswerTable();
-    };
+    // $scope.createLookUp = function(newLookUp) {
+    //   if ($scope.isLookUpInvalid(newLookUp)) {
+    //     Toast('can not create lookup row, please check your values');
+    //     return;
+    //   }
+    //
+    //   if (!$scope.edittingLookUp) {
+    //     $scope.selectedLookUp.table.push(newLookUp);
+    //   }
+    //
+    //   $scope.newLookUp = {};
+    //   $scope.addPattern = false;
+    //   combineResultAndAnswerTable();
+    // };
 
     $scope.editThisLookUpTableRow = function(row, index) {
       $scope.activeTab  = 'lookup-tab';
@@ -215,24 +205,33 @@ angular.module('answers.controllers')
       return _.contains(lookUpValues, "") || (lookUpValues.length < 4);
     };
 
-    // push an empty look up and assign it as selected
-    $scope.createLookUpTable = function() {
-      var emptyLookUp = {
-        name: Date.now() + '-Look up',
-        table: [{
-          A:0,
-          B:0,
-          C:0,
-          D:0
-        }]
-      };
+    var saveCreatedTable = function(data) {
+      if (!data) {
+        Toast("you canceled creation of table");
+        return;
+      }
 
-      $scope.allLookUpTables.unshift(emptyLookUp);
-      $scope.selectedLookUp = $scope.allLookUpTables[0];
+      Refs.lookUps.push(angular.copy(data), function(error) {
+        if (!error) {
+          Toast("Successfully created look up pattern");
+        }
+      });
+    };
+
+    // push an empty look up and assign it as selected
+    $scope.createNewTable = function() {
+      $mdDialog.show({
+        scope: $scope,
+        preserveScope: true,
+        controller: 'createTableCtrl',
+        templateUrl: 'views/modals/create-table-modal.html',
+        targetEvent: event
+      }).then(function(data) {
+        saveCreatedTable(data);
+      });
     };
 
     var confirmDelete = new Promise(function(resolve, reject) {
-      // ask for confirm delete for everything
       resolve(1);
     });
 
