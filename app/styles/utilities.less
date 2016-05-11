@@ -58,37 +58,10 @@ md-dialog-content {
         border-bottom: 1px solid #efefef;
         font-weight: 400;
         text-align: center;
-        a {
-          color: #006699;
-          text-decoration: none;
-        }
-        &.actions {
-          a {
-            color: #006699;
-            font-weight: 600;
-            text-decoration: none;
+        .mdi {
+          &:hover {
+            color: green;
           }
-          div {
-            opacity: 0;
-            transition: opacity .3s;
-          }
-        }
-        button {
-          &.owner-actions {
-            width: 70px;
-            height: 20px;
-            border-radius: 22px;
-            line-height: 13px;
-            font-size: 13px;
-            border: 1px solid #ebebeb;
-            background-color: transparent;
-          }
-          &.owner-actions:hover {
-            display: visible;
-          }
-        }
-        &.no-background-color:hover {
-          background-color: transparent;
         }
       }
       &:last-child {

@@ -36,7 +36,7 @@ md-dialog(aria-label="Edit Project" flex="35" flex-lg="35" flex-sm="100" flex-md
             td()
               input(ng-model="table.D" type='number' max='2' min='0')
             td()
-              i.mdi.mdi-check(ng-disabled="isRowComplete(table)" ng-click="saveTableRow(table)")
+              i.mdi.mdi-check(ng-click="saveTableRow(table)")
             
   .md-actions(layout="row")
     md-button(ng-click="cancel()") Cancel

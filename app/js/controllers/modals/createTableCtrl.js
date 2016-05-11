@@ -1,13 +1,13 @@
 angular.module('answers.controllers')
-  .controller('createTableCtrl', ['$scope', '$mdDialog',
-    function($scope, $mdDialog) {
+  .controller('createTableCtrl', ['$scope', '$mdDialog','Toast',
+    function($scope, $mdDialog, Toast) {
 
-    console.log('table', $scope);
+    $scope.table = {};
     $scope.newTable = {
       table:[]
     };
 
-    $scope.table = {};
+
     // Closes the modal
     $scope.cancel = function() {
       $mdDialog.cancel();
@@ -18,12 +18,13 @@ angular.module('answers.controllers')
     };
 
     $scope.saveTableRow = function(row) {
+      if (_.keys(row).length < 4) {
+        Toast('incomplete row');
+        return;
+      }
+
       $scope.newTable.table.push(row);
       $scope.table = {};
-    };
-
-    $scope.isRowComplete = function(table) {
-      return  _.keys(table).length < 4;
     };
   }
 ]);
