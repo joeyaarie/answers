@@ -16,71 +16,71 @@ div()
         
     .bottom-bar(flex layout="row" layout-padding)
       div.white-body.no-padding(flex="25" layout="column")
-        .tables-creator()
-          md-tabs(md-selected='selectedIndex')
-            md-tab(md-on-select='onTabSelected(tab)', md-on-deselect='announceDeselected(tab)')
-              md-tab-label Patterns   
-              md-tab-body
-                .pattern-body()
-                  .create-new(ng-if="!addPattern" ng-click="openNewPatternTray()") 
-                    i.mdi.mdi-plus
-                    | pattern
-                  .new-pattern(ng-if="addPattern" flex layout-gt-sm="column")
-                    md-input-container()
-                      label Name
-                      input(ng-model="newPattern.name")
-                    md-input-container()
-                      label Pattern
-                      input(ng-model="newPattern.pattern" ng-change="delimitPattern(newPattern.pattern)")
-                    .tools(layout="row" layout-align="center")
-                      md-button.md-primary(ng-disabled="!newPattern.pattern || !newPattern.name" ng-click="createPattern(newPattern)")
-                        i.mdi.mdi-check
-                      md-button.md-primary(aria-label="" ng-click="openNewPatternTray()")
-                        i.mdi.mdi-close
-                      
-                  .oldPatterns
-                    .pattern-list(ng-repeat="item in allPatterns" layout="row" layout-align="space-between")
-                      .item-detail(ng-if="!showItemDetailEdit" flex)
-                        span {{item.name}} ({{item.pattern}})
-                      .item-detail-edit(ng-if="showItemDetailEdit" flex layout="row")
-                        input(ng-model="item.pattern")
-                        .item-tool
-                          i.mdi.mdi-check(ng-click="saveItemEdit(item)")
-                      .item-tool(layout="row" layout-align="space-between")
-                        i.mdi.mdi-math-compass(ng-click="calculatePattern(item)")
-                        i.mdi.mdi-pencil(ng-click="showItemDetailEdit = !showItemDetailEdit")
-                        i.mdi.mdi-delete(ng-click="deletePattern(item)")
+        //- .tables-creator()
+        md-tabs(md-selected='selectedIndex')
+          md-tab(md-on-select='onTabSelected(tab)', md-on-deselect='announceDeselected(tab)')
+            md-tab-label Patterns   
+            md-tab-body
+              .pattern-body()
+                .create-new(ng-if="!addPattern" ng-click="openNewPatternTray()") 
+                  i.mdi.mdi-plus
+                  | pattern
+                .new-pattern(ng-if="addPattern" flex layout-gt-sm="column")
+                  md-input-container()
+                    label Name
+                    input(ng-model="newPattern.name")
+                  md-input-container()
+                    label Pattern
+                    input(ng-model="newPattern.pattern" ng-change="delimitPattern(newPattern.pattern)")
+                  .tools(layout="row" layout-align="center")
+                    md-button.md-primary(ng-disabled="!newPattern.pattern || !newPattern.name" ng-click="createPattern(newPattern)")
+                      i.mdi.mdi-check
+                    md-button.md-primary(aria-label="" ng-click="openNewPatternTray()")
+                      i.mdi.mdi-close
+                    
+                .oldPatterns
+                  .pattern-list(ng-repeat="item in allPatterns" layout="row" layout-align="space-between")
+                    .item-detail(ng-if="!showItemDetailEdit" flex)
+                      span {{item.name}} ({{item.pattern}})
+                    .item-detail-edit(ng-if="showItemDetailEdit" flex layout="row")
+                      input(ng-model="item.pattern")
+                      .item-tool
+                        i.mdi.mdi-check(ng-click="saveItemEdit(item)")
+                    .item-tool(layout="row" layout-align="space-between")
+                      i.mdi.mdi-math-compass(ng-click="calculatePattern(item)")
+                      i.mdi.mdi-pencil(ng-click="showItemDetailEdit = !showItemDetailEdit")
+                      i.mdi.mdi-delete(ng-click="deletePattern(item)")
 
 
-            md-tab(md-on-select='onTabSelected(tab)', md-on-deselect='announceDeselected(tab)' )
-              md-tab-label Look Up   
-              md-tab-body
-                .lookup-body()
-                  .create-new(ng-click="addPattern = !addPattern") 
-                    i.mdi.mdi-plus
-                    | add look up row
-                  .newLookUp(layout="column" ng-if="addPattern")
-                    .container(layout="row")
-                      span Row No: {{selectedLookUp.table.length +1}}
-                      label A:
-                      input(ng-model="newLookUp.A" type='number' max='2' min='0')
-                      label B:
-                      input(ng-model="newLookUp.B" type='number' max='2' min='0') 
-                      label C:
-                      input(ng-model="newLookUp.C" type='number' max='2' min='0') 
-                      label D:
-                      input(ng-model="newLookUp.D" type='number' max='2' min='0')
-                    .tools(layout="row" layout-align="center")
-                      md-button.raised(ng-disabled="false" ng-click="createLookUp(newLookUp)") Save
-                      md-button.raised(ng-if="edittingLookUp" ng-click="removeLookUpRow(newLookUp)") Delete
-                      md-button.raised(ng-click="openNewPatternTray()") Cancel
-            
-            md-tab(md-on-select='onTabSelected(tab)', md-on-deselect='announceDeselected(tab)' )
-              md-tab-label Sessions   
-              md-tab-body
-                .session-body()
-                  .session(ng-value="opt" ng-repeat="opt in allSession") {{opt.name}}
-            
+          md-tab(md-on-select='onTabSelected(tab)', md-on-deselect='announceDeselected(tab)' )
+            md-tab-label Look Up   
+            md-tab-body
+              .lookup-body()
+                .create-new(ng-click="addPattern = !addPattern") 
+                  i.mdi.mdi-plus
+                  | add look up row
+                .newLookUp(layout="column" ng-if="addPattern")
+                  .container(layout="row")
+                    span Row No: {{selectedLookUp.table.length +1}}
+                    label A:
+                    input(ng-model="newLookUp.A" type='number' max='2' min='0')
+                    label B:
+                    input(ng-model="newLookUp.B" type='number' max='2' min='0') 
+                    label C:
+                    input(ng-model="newLookUp.C" type='number' max='2' min='0') 
+                    label D:
+                    input(ng-model="newLookUp.D" type='number' max='2' min='0')
+                  .tools(layout="row" layout-align="center")
+                    md-button.raised(ng-disabled="false" ng-click="createLookUp(newLookUp)") Save
+                    md-button.raised(ng-if="edittingLookUp" ng-click="removeLookUpRow(newLookUp)") Delete
+                    md-button.raised(ng-click="openNewPatternTray()") Cancel
+          
+          md-tab(md-on-select='onTabSelected(tab)', md-on-deselect='announceDeselected(tab)' )
+            md-tab-label Sessions   
+            md-tab-body
+              .session-body()
+                .session(ng-value="opt" ng-repeat="opt in allSession") {{opt.name}}
+          
             
 
       span(flex="5")
