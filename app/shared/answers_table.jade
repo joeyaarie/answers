@@ -2,15 +2,16 @@
   .table-header(flex layout="rows" layout-align="space-between")
     md-button.import.tool(aria-label="new look up" flex ng-click="createLookUpTable()" ng-disabled="false")
       i.mdi.mdi-table-large
+      | IMPORT TABLE
     md-button.tool(aria-label="import data" flex ng-click="importLookUpTable()" ng-disabled="false")
       input#getCsvFile(type="file"  accept=".csv")
       i.mdi.mdi-import(ng-init="initializeFileHandler()")
-    md-button.tool(aria-label="save session" flex ng-click="saveSession()" ng-disabled="false")
-      i.mdi.mdi-content-save-all
-    md-button.tool(aria-label="delete session" flex ng-click="deleteSession()" ng-disabled="false")
-      i.mdi.mdi-delete
     md-button.tool(aria-label="export table" flex ng-click="exportTable()" ng-disabled="false")
       i.mdi.mdi-export
+      | EXPORT TABLE
+    md-button.tool(aria-label="export table" flex ng-click="saveSession()" ng-disabled="false")
+      i.mdi.mdi-export
+      | SAVE SESSION
 
     
   .table-patterns(layout="row")

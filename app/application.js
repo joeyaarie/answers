@@ -65,8 +65,8 @@ Answers.run(['$rootScope', '$state', 'Authentication', 'Refs','Toast',
 }]);
 
 /* application routes */
-Answers.config(['$stateProvider','$locationProvider',
- function($stateProvider, $locationProvider) {
+Answers.config(['$stateProvider','$locationProvider','$mdThemingProvider',
+ function($stateProvider, $locationProvider, $mdThemingProvider) {
 
   $locationProvider.html5Mode(true);
   $stateProvider
@@ -91,4 +91,9 @@ Answers.config(['$stateProvider','$locationProvider',
       templateUrl: 'views/home.html',
       controller: 'HomeCtrl'
     });
+
+  $mdThemingProvider.theme('default')
+    .primaryPalette('blue-grey')
+    .accentPalette('amber');
+
 }]);

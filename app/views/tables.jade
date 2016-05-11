@@ -6,13 +6,13 @@ div()
           md-option(ng-value="opt" ng-repeat="opt in allLookUpTables") {{opt.name}}
       .top-section(flex layout="row" layout-align="space-around")
         md-button.md-raised.md-primary(ng-disabled="!selectedLookUp" ng-click="calculatedPattern()") Calculate
-        md-button.md-raised.md-warn(ng-disabled="!selectedLookUp" ng-click="deleteLookUp(selectedLookUp)") Delete
+        md-button.md-raised.md-warn(ng-disabled="!selectedLookUp.key" ng-click="deleteLookUp(selectedLookUp)") Delete
       .top-section.select-lookup(flex layout-align="space-around")
         md-select(ng-model="selectedSession"  placeholder="Select a Session")
           md-option(ng-value="opt" ng-repeat="opt in allSession") {{opt.name}}
       .top-section(flex  layout="row" layout-align="space-around")
-          md-button.md-raised.md-primary(ng-disabled="!selectedSession" ng-click="saveSession()") Save
-          md-button.md-raised.md-warn(ng-disabled="!selectedSession" ng-click="deleteSession()") Delete
+        md-button.md-raised.md-primary(ng-disabled="!selectedSession" ng-click="showSession()") Show
+        md-button.md-raised.md-warn(ng-disabled="!selectedSession" ng-click="deleteSession()") Delete
         
     .bottom-bar(flex layout="row" layout-padding)
       div.white-body.no-padding(flex="25" layout="column")

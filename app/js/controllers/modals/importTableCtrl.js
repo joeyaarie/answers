@@ -10,5 +10,9 @@ angular.module('answers.controllers')
     $scope.cancel = function() {
       $mdDialog.hide(null);
     };
+
+    $scope.saveNewTable = function(table) {
+      $mdDialog.hide(table);
+    };
   }
 ]);

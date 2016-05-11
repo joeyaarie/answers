@@ -12,15 +12,17 @@ angular.module('answers.controllers')
     $scope.allLookUpTables = [];
     $scope.selectedIndex = 0;
 
+
     $scope.initializeFileHandler = function() {
       var csvFileElement = angular.element(document.querySelector('#getCsvFile'));
       csvFileElement.on('change', loadCsvFile);
     };
 
-    var loadCsvFile = function() {
-      var file = document.querySelector('#getCsvFile').files[0];
+    var loadCsvFile = function(e) {
+      var file = e.currentTarget.files[0];
+      $(this).val('');
 
-      if (file) { console.log('found a file here');
+      if (file) {
         var reader = new FileReader();
         reader.readAsText(file);
       }
@@ -28,23 +30,22 @@ angular.module('answers.controllers')
       reader.onload = function(event) {
         var textFile =  event.target.result;
         $scope.createLookUpfromJsonData(
-          MockData.convertCsvToJsonData(textFile)
+          MockData.convertCsvToJsonData(textFile),
+          event
         );
       };
 
     };
 
-    $scope.createLookUpfromJsonData = function(jsonArray) {
+    $scope.createLookUpfromJsonData = function(jsonArray, event) {
       $mdDialog.show({
         scope: $scope,
         preserveScope: true,
         clickOutsideToClose: true,
-        locals: {
-          dataTable : jsonArray
-        },
+        locals: { dataTable : jsonArray },
         controller: 'importTableCtrl',
         templateUrl: 'views/modals/import-table-modal.html',
-        targetEvent: angular.element(document.querySelector('#getCsvFile'))
+        targetEvent: event
       }).then(function(data) {
 
         if (!data) {
@@ -52,23 +53,12 @@ angular.module('answers.controllers')
           return;
         }
 
-        var newLookUp = {
-          name : Date.now() + ' Look up',
-          table : jsonArray
-        };
-
-        Refs.lookUps.push(newLookUp, function(error) {
+        Refs.lookUps.push(angular.copy(data), function(error) {
           if (!error) {
-            Toast("Successfully created look up patterm");
+            Toast("Successfully created look up pattern");
           }
         });
       });
-      // show a big modal with the lookup table
-      // ask for the table to be saved or discarded
-      // put a section for the name of the table
-      // save the table to the database and include
-      // in the dropdown of the lookup tables
-
     };
 
     $scope.lookUpTable = MockData.getLookUpTable();
@@ -239,6 +229,21 @@ angular.module('answers.controllers')
 
       $scope.allLookUpTables.unshift(emptyLookUp);
       $scope.selectedLookUp = $scope.allLookUpTables[0];
+    };
+
+    var confirmDelete = new Promise(function(resolve, reject) {
+      // ask for confirm delete for everything
+      resolve(1);
+    });
+
+    // delete the selected look up table
+    $scope.deleteLookUp = function(table) {
+      confirmDelete.then(function(val) {
+        if (val) {
+          Refs.lookUps.child(table.key).remove();
+          Toast("deleted successfully");
+        }
+      });
     };
 
   }
