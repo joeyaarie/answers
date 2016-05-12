@@ -20,7 +20,7 @@ angular.module('answers.controllers')
 
     var loadCsvFile = function(e) {
       var file = e.currentTarget.files[0];
-      $(this).val('');
+      $(this).val(''); // clear the file input for another input
 
       if (file) {
         var reader = new FileReader();
@@ -88,10 +88,6 @@ angular.module('answers.controllers')
         return;
       }
       $scope.resultsTable.push(result);
-    };
-
-    $scope.selectTab = function(tab) {
-      $scope.activeTab = tab;
     };
 
     function keyUpArraysObjects(array) {

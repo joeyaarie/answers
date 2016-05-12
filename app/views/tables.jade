@@ -42,7 +42,7 @@ div()
                     .item-detail(flex)
                       span {{item.name}} ({{item.pattern}})
                     .item-tool(layout="row" layout-align="space-between")
-                      i.mdi.mdi-send(ng-click="calculatePattern(item)")
+                      i.mdi.mdi-send(ng-click="calculateOnePattern(item)")
                       i.mdi.mdi-pencil(ng-click="showEditPatternModal(item)")
                       i.mdi.mdi-delete(ng-click="deletePattern(item)")
 
