@@ -1,11 +1,12 @@
 .headers(layout="column")
   .table-header(flex layout="rows" layout-align="space-between")
-    md-button.import.tool(flex aria-label="new look up"  data-ng-click="createNewTable()") CREATE TABLE
-    md-button.tool(aria-label="import data" flex ng-click="importLookUpTable()")
-      input#getCsvFile(type="file"  accept=".csv")
-      i.mdi.mdi-import(ng-init="initializeFileHandler()")
-    md-button.tool(aria-label="export table" flex ng-click="exportTable()") EXPORT TABLE
-    md-button.tool(aria-label="export table" flex ng-click="saveSession()") SAVE SESSION
+    md-button.tool(flex aria-label="new look up"  data-ng-click="createNewTable()") CREATE TABLE
+    md-button.import.tool(aria-label="import data" flex ng-click="importLookUpTable()")
+      .input-container
+        input#getCsvFile(type="file"  accept=".csv")
+        | IMPORT TABLE
+    md-button.tool(aria-label="export table" flex ng-click="exportTable()" ng-disabled="true") EXPORT TABLE
+    md-button.tool(aria-label="export table" flex ng-click="saveSession()" ng-disabled="true") SAVE SESSION
 
     
   .table-patterns(layout="row")

@@ -1,0 +1,16 @@
+md-dialog(aria-label="Edit Project" flex="35" flex-lg="35" flex-sm="100" flex-md="70")
+  md-toolbar
+    .md-toolbar-tools.md-template-header
+      h2 EDIT {{editPattern.name}} PATTERN 
+  md-dialog-content
+    .new-pattern( flex layout-gt-sm="column")
+      md-input-container()
+        label Name
+        input(ng-model="editPattern.name")
+      md-input-container()
+        label Pattern
+        input(ng-model="editPattern.pattern" ng-change="delimitPattern(editPattern.pattern)")
+    
+  .md-actions(layout="row")
+    md-button(ng-click="cancel()") Cancel
+    md-button.md-primary.md-raised(ng-disabled="!editPattern.name || !editPattern.pattern" ng-click="updatePattern(editPattern)") Save

@@ -71,6 +71,7 @@ angular.module('answers.controllers')
         Toast("Please select a look up before calculating");
         return;
       }
+
       var result = MockData.computeResults(
         newPattern,
         $scope.selectedLookUp.table
@@ -153,21 +154,6 @@ angular.module('answers.controllers')
       });
     };
 
-    // $scope.createLookUp = function(newLookUp) {
-    //   if ($scope.isLookUpInvalid(newLookUp)) {
-    //     Toast('can not create lookup row, please check your values');
-    //     return;
-    //   }
-    //
-    //   if (!$scope.edittingLookUp) {
-    //     $scope.selectedLookUp.table.push(newLookUp);
-    //   }
-    //
-    //   $scope.newLookUp = {};
-    //   $scope.addPattern = false;
-    //   combineResultAndAnswerTable();
-    // };
-
     $scope.editThisLookUpTableRow = function(row, index) {
       $scope.activeTab  = 'lookup-tab';
       $scope.addPattern = true;
@@ -187,17 +173,28 @@ angular.module('answers.controllers')
       Refs.patterns.child(pattern.key).remove();
     };
 
-    $scope.saveItemEdit = function(pattern) {
-      var unHasedPattern = angular.copy(pattern);
-      unHasedPattern.pattern = unHasedPattern.pattern.toUpperCase();
-      Refs.patterns.child(unHasedPattern.key).set(unHasedPattern, function() {
-        Toast('pattern has been updated.');
-      });
-    };
+    // $scope.showTheEditInput = function(index) {
+    //   $scope.DetailEdit = !$scope.showItemDetailEdit;
+    //   $scope.editIndex = index;
+    // };
 
-    $scope.showTheEditInput = function(index) {
-      $scope.showItemDetailEdit = !$scope.showItemDetailEdit;
-      $scope.editIndex = index;
+    $scope.showEditPatternModal = function(item) {
+      $mdDialog.show({
+        locals: {
+          pattern : item
+        },
+        controller: 'editPatternCtrl',
+        templateUrl: 'views/modals/edit-pattern-modal.html',
+        targetEvent: event
+      }).then(function(data) {
+
+        if (data) {
+          Refs.patterns.child(data.key).set(data, function() {
+            Toast('pattern has been updated.')
+          });
+        }
+
+      });
     };
 
     $scope.isLookUpInvalid = function(lookUp) {

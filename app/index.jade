@@ -6,11 +6,12 @@ html(lang="en" ng-app="Answers")
     include shared/scripts
   body()
     #wrapper(layout-fill layout="column")
-      #content
+      #header
         md-toolbar.toolbar-tools(layout="row")
           span(flex="95")
           md-button(flex="5" aria-label="More")
             a(href="/logout")
               i.mdi.mdi-dots-vertical.large-icon(layout-align="end")
-        md-content.md-default-theme.no-bg.grey-body(layout-fill ui-view)
+      #content
+        md-content(layout-fill ui-view)
       #footer

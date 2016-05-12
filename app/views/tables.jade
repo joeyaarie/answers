@@ -1,6 +1,6 @@
 div()
   .table-body(layout="column")
-    .top-bar.white-body(flex layout="row")
+    .top-bar(flex layout="row")
       .top-section.select-lookup(flex)
         md-select(ng-model="selectedLookUp"  placeholder="Select a look up")
           md-option(ng-value="opt" ng-repeat="opt in allLookUpTables") {{opt.name}}
@@ -16,7 +16,6 @@ div()
         
     .bottom-bar(flex layout="row" layout-padding)
       div.white-body.no-padding(flex="25" layout="column")
-        //- .tables-creator()
         md-tabs(md-selected='selectedIndex')
           md-tab(md-on-select='onTabSelected(tab)', md-on-deselect='announceDeselected(tab)')
             md-tab-label Patterns   
@@ -40,15 +39,11 @@ div()
                     
                 .oldPatterns
                   .pattern-list(ng-repeat="item in allPatterns" layout="row" layout-align="space-between")
-                    .item-detail(ng-if="!showItemDetailEdit" flex)
+                    .item-detail(flex)
                       span {{item.name}} ({{item.pattern}})
-                    .item-detail-edit(ng-if="showItemDetailEdit" flex layout="row")
-                      input(ng-model="item.pattern")
-                      .item-tool
-                        i.mdi.mdi-check(ng-click="saveItemEdit(item)")
                     .item-tool(layout="row" layout-align="space-between")
-                      i.mdi.mdi-math-compass(ng-click="calculatePattern(item)")
-                      i.mdi.mdi-pencil(ng-click="showItemDetailEdit = !showItemDetailEdit")
+                      i.mdi.mdi-send(ng-click="calculatePattern(item)")
+                      i.mdi.mdi-pencil(ng-click="showEditPatternModal(item)")
                       i.mdi.mdi-delete(ng-click="deletePattern(item)")
 
 
@@ -71,7 +66,7 @@ div()
                     label D:
                     input(ng-model="newLookUp.D" type='number' max='2' min='0')
                   .tools(layout="row" layout-align="center")
-                    md-button.raised(ng-disabled="false" ng-click="createLookUp(newLookUp)") Save
+                    md-button.raised(ng-disabled="false" ng-click="updateLookUp(newLookUp)") Save
                     md-button.raised(ng-if="edittingLookUp" ng-click="removeLookUpRow(newLookUp)") Delete
                     md-button.raised(ng-click="openNewPatternTray()") Cancel
           

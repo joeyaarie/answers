@@ -18,6 +18,7 @@ require('./js/controllers/tables.js');
 /* load the modal controllers*/
 require('./js/controllers/modals/importTableCtrl.js');
 require('./js/controllers/modals/createTableCtrl.js');
+require('./js/controllers/modals/editPatternCtrl.js');
 
 /* load directives */
 require('./js/directives/logout.js');
