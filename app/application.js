@@ -54,8 +54,9 @@ Answers.run(['$rootScope', '$state', 'Authentication', 'Refs','Toast',
 
   Refs.root.onAuth($rootScope.authCallback);
 
-  // $rootScope.$on('$routeChangeSuccess', function(event, nextRoute, currentRoute) {
-  //   console.log('this route just changed');
+  // $rootScope.$on('$stateChangeStart',
+  //   function(event, toState, toParams, fromState, fromParams, options){
+  //
   // });
 
 }]);
@@ -67,7 +68,7 @@ Answers.config(['$stateProvider','$locationProvider','$mdThemingProvider',
   $locationProvider.html5Mode(true);
   $stateProvider
     .state('login', {
-      url: '/',
+      url: '/login',
       templateUrl: 'views/login.html',
       controller: 'LoginCtrl'
     })
@@ -77,15 +78,10 @@ Answers.config(['$stateProvider','$locationProvider','$mdThemingProvider',
         Authentication.logout();
       }]
     })
-    .state('tables', {
+    .state('default', {
       url: '/tables',
       templateUrl: 'views/tables.html',
       controller: 'TablesCtrl'
-    })
-    .state('default', {
-      url: '/home',
-      templateUrl: 'views/home.html',
-      controller: 'HomeCtrl'
     });
 
   $mdThemingProvider.theme('default')

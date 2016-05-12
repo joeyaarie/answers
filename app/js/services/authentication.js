@@ -36,7 +36,7 @@ angular.module('answers.services')
               // save the current user in the global scope
               $rootScope.currentUser = user;
               // navigate to home page
-              $state.go('tables');
+              $state.go('default');
             }
             else {
               // construct the user record the way we want it
