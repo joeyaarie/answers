@@ -65,8 +65,13 @@ angular.module('answers.controllers')
       });
     });
 
+    // calculate all the pattern that is available
+    $scope.calculateAllPatterns = function() {
+      combineResultAndAnswerTable();
+    };
+
     // calculates the results of any pattern added.
-    $scope.calculatePattern =  function(newPattern) {
+    $scope.calculateOnePattern =  function(newPattern) {
       if (!$scope.selectedLookUp) {
         Toast("Please select a look up before calculating");
         return;
@@ -108,7 +113,7 @@ angular.module('answers.controllers')
       if ($scope.allPatterns.length) {
         $scope.resultsTable = [];
         $scope.allPatterns.forEach(function(pattern) {
-          $scope.calculatePattern(pattern);
+          $scope.calculateOnePattern(pattern);
         });
       }
     };
@@ -149,7 +154,7 @@ angular.module('answers.controllers')
       Refs.patterns.push(newPattern, function(error) {
         if (!error) {
           Toast("Successfully created new answers pattern");
-          $scope.calculatePattern(newPattern);
+          $scope.calculateOnePattern(newPattern);
         }
       });
     };
