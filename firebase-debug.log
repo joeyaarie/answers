@@ -1,0 +1,25 @@
+[debug] ----------------------------------------------------------------------
+[debug] Command:      /Users/kainos/.nvm/versions/node/v4.2.1/bin/node /Users/kainos/.nvm/versions/node/v4.2.1/bin/firebase deploy
+[debug] Platform:     darwin
+[debug] Node Version: v4.2.1
+[debug] Time:         Thu May 12 2016 23:21:39 GMT+0100 (WAT)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[debug] >>> HTTP REQUEST GET https://admin.firebase.com/firebase/answers-table/token?token=XXX 
+[debug] Error: socket hang up
+    at createHangUpError (_http_client.js:203:15)
+    at TLSSocket.socketOnEnd (_http_client.js:288:23)
+    at emitNone (events.js:72:20)
+    at TLSSocket.emit (events.js:166:7)
+    at endReadableNT (_stream_readable.js:903:12)
+    at doNTCallback2 (node.js:439:9)
+    at process._tickCallback (node.js:353:17)
+[error] 
+[error] Error: Server Error. Please try again in a few minutes.
+[debug] Error Context: {
+  "requestOptions": {
+    "method": "GET",
+    "json": true,
+    "url": "https://admin.firebase.com/firebase/answers-table/token?token=-Jf2C5Pku0sagrxpBV7F%7Cecd460a3f69898f3cd63ebd129f2b5c0"
+  }
+}
