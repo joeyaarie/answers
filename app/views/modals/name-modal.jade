@@ -1,0 +1,13 @@
+md-dialog(aria-label="Name Session" flex="35" flex-lg="35" flex-sm="100" flex-md="70")
+  md-toolbar
+    .md-toolbar-tools.md-template-header
+      h2 SESSION NAME
+  md-dialog-content(layout="column")
+    md-input-container
+      label Name:
+      input(ng-model="sessionName" placeholder="enter a name for this session")
+
+
+    .md-actions(layout="row")
+      md-button(ng-click="cancel()") Cancel
+      md-button.md-primary.md-raised(ng-disabled="!sessionName" ng-click="saveName(sessionName)") Save

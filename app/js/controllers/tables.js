@@ -3,6 +3,7 @@ angular.module('answers.controllers')
   function($scope, Refs, Toast, MockData, $timeout, $mdDialog) {
 
     $scope.allPatterns  = [];
+    $scope.allSessions  = [];
     $scope.newPattern   = {};
     $scope.newLookUp    = {};
     $scope.resultsTable = [];
@@ -12,9 +13,18 @@ angular.module('answers.controllers')
     $scope.allLookUpTables = [];
     $scope.selectedIndex = 0;
 
+    var confirm = $mdDialog.confirm()
+      .title('Delete Confirmation')
+      .content('Are you sure you want to delete this?')
+      .ok('OK')
+      .cancel('Cancel')
+      .targetEvent();
 
     $scope.initializeFileHandler = function() {
-      var csvFileElement = angular.element(document.querySelector('#getCsvFile'));
+      var csvFileElement = angular.element(
+        document.querySelector('#getCsvFile')
+      );
+
       csvFileElement.on('change', loadCsvFile);
     };
 
@@ -53,16 +63,24 @@ angular.module('answers.controllers')
 
     $scope.lookUpTable = MockData.getLookUpTable();
 
-    Refs.patterns.on('value', function(snap) {
+    var saveToScope = function(name, snap) {
       $timeout(function() {
-        $scope.allPatterns  = _.toArray(keyUpArraysObjects(snap.val()));
+        $scope[name]  = _.toArray(
+          keyUpArraysObjects(snap.val())
+        );
       });
+    };
+
+    Refs.patterns.on('value', function(snap) {
+      saveToScope('allPatterns', snap);
     });
 
     Refs.lookUps.on('value', function(snap) {
-      $timeout(function() {
-        $scope.allLookUpTables  = _.toArray(keyUpArraysObjects(snap.val()));
-      });
+      saveToScope('allLookUpTables', snap);
+    });
+
+    Refs.sessions.on('value', function(snap) {
+      saveToScope('allSessions', snap);
     });
 
     // calculate all the pattern that is available
@@ -87,6 +105,7 @@ angular.module('answers.controllers')
         Toast('You have added this to the table');
         return;
       }
+
       $scope.resultsTable.push(result);
     };
 
@@ -114,22 +133,8 @@ angular.module('answers.controllers')
       }
     };
 
-    // create the options for export
-    $scope.exportOptions = [
-      { id: 1, name: 'Look Up' },
-      { id: 2, name: 'Session' },
-      { id: 3, name: 'Result Table' }
-    ];
-    $scope.selectedOption = $scope.exportOptions[0];
-
     $scope.removeFromResultsTable = function(index) {
      $scope.resultsTable.splice(index, 1);
-    };
-
-    $scope.saveSession = function() {
-      // save the session into the database
-      // so that its retrivable on another day
-      // save the session with the users desired name
     };
 
     var isKeyPossible = function(pattern) {
@@ -159,25 +164,28 @@ angular.module('answers.controllers')
       $scope.activeTab  = 'lookup-tab';
       $scope.addPattern = true;
       $scope.newLookUp  = $scope.selectedLookUp.table[index];
-      $scope.edittingLookUp = true;
       $scope.edittingLookUpIndex = index;
+      $scope.edittingLookUp = true;
     };
 
     $scope.removeLookUpRow = function(lookup) {
-      $scope.selectedLookUp.table.splice($scope.edittingLookUpIndex,1);
+      $scope.selectedLookUp.table.splice($scope.edittingLookUpIndex, 1);
       $scope.edittingLookUp = false;
       $scope.addPattern     = false;
       combineResultAndAnswerTable();
     };
 
     $scope.deletePattern = function(pattern) {
-      Refs.patterns.child(pattern.key).remove();
-    };
+      confirm.content('are you sure you want to delete this pattern?');
+      confirm.targetEvent(event);
+      $mdDialog.show(confirm).then(function(val) {
+        if (val) {
+          Refs.patterns.child(pattern.key).remove();
+          Toast("deleted successfully");
+        }
+      });
 
-    // $scope.showTheEditInput = function(index) {
-    //   $scope.DetailEdit = !$scope.showItemDetailEdit;
-    //   $scope.editIndex = index;
-    // };
+    };
 
     $scope.showEditPatternModal = function(item) {
       $mdDialog.show({
@@ -211,7 +219,7 @@ angular.module('answers.controllers')
 
       Refs.lookUps.push(angular.copy(data), function(error) {
         if (!error) {
-          Toast("Successfully created look up pattern");
+          Toast("Successfully created look up table");
         }
       });
     };
@@ -229,15 +237,58 @@ angular.module('answers.controllers')
       });
     };
 
-    var confirmDelete = new Promise(function(resolve, reject) {
-      resolve(1);
-    });
-
     // delete the selected look up table
     $scope.deleteLookUp = function(table) {
-      confirmDelete.then(function(val) {
+      confirm.content('are you sure you want to delete look up ?');
+      confirm.targetEvent(event);
+      $mdDialog.show(confirm).then(function(val) {
         if (val) {
           Refs.lookUps.child(table.key).remove();
+          Toast("deleted successfully");
+        }
+      });
+    };
+
+    var saveSessionToDatabase = function(name) {
+      var sessionLookUp = angular.copy($scope.selectedLookUp);
+      delete sessionLookUp.$$mdSelectId;
+
+      Refs.sessions.push({
+        name: name,
+        created: Date.now(),
+        lookUp: sessionLookUp,
+        patterns: angular.copy($scope.resultsTable)
+      }, function(error) {
+
+        if (!error)
+          Toast("Successfully created session");
+
+      });
+    };
+
+    $scope.saveSession = function() {
+      if (!$scope.resultsTable.length || !$scope.selectedLookUp) {
+        Toast('please ensure a look up and patterns');
+        return;
+      }
+
+      $mdDialog.show({
+        scope: $scope,
+        preserveScope: true,
+        controller: 'renameCtrl',
+        templateUrl: 'views/modals/name-modal.html',
+        targetEvent: event
+      }).then(function(name) {
+        saveSessionToDatabase(name);
+      });
+    };
+
+    $scope.deleteSession = function(session) {
+      confirm.content('are you sure you want to delete session ?');
+      confirm.targetEvent(event);
+      $mdDialog.show(confirm).then(function(val) {
+        if (val) {
+          Refs.sessions.child(session.key).remove();
           Toast("deleted successfully");
         }
       });

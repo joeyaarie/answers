@@ -19,6 +19,7 @@ require('./js/controllers/tables.js');
 require('./js/controllers/modals/importTableCtrl.js');
 require('./js/controllers/modals/createTableCtrl.js');
 require('./js/controllers/modals/editPatternCtrl.js');
+require('./js/controllers/modals/renameCtrl.js');
 
 /* load directives */
 require('./js/directives/logout.js');
