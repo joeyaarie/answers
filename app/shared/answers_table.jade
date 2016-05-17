@@ -6,7 +6,7 @@
         input#getCsvFile(type="file"  accept=".csv")
         | IMPORT TABLE
     md-button.tool(aria-label="export table" flex ng-click="exportTable()" ng-disabled="true") EXPORT TABLE
-    md-button.tool(aria-label="export table" flex ng-click="saveSession()" ng-disabled="false") SAVE SESSION
+    md-button.tool(aria-label="export table" flex ng-click="saveSession()" ng-disabled="!selectedLookUp.table || !resultsTable.length") SAVE SESSION
 
     
   .table-patterns(layout="row")
