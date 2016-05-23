@@ -1,0 +1,39 @@
+md-dialog(aria-label="Edit Row" flex="35" flex-lg="35" flex-sm="100" flex-md="35")
+  md-toolbar
+    .md-toolbar-tools.md-template-header
+      h2 EDIT LOOK UP TABLE ROW
+  md-dialog-content
+    .table-content()
+      table.new-table()
+        thead(flex) 
+          tr(flex)
+            th(flex) S/N 
+            th(flex) A    
+            th(flex) B
+            th(flex) C        
+            th(flex) D  
+            th(flex) 
+        |     
+        tbody()
+          tr(ng-if="rowBeforeEditRow")
+            td() {{rowIndex}}
+            td(ng-repeat="cell in rowBeforeEditRow") {{cell}}
+                
+          tr()
+            td() {{rowIndex + 1}}
+            td()
+              input(ng-model="editTable.A" type='number' max='2' min='0')
+            td()
+              input(ng-model="editTable.B" type='number' max='2' min='0')
+            td()
+              input(ng-model="editTable.C" type='number' max='2' min='0')
+            td()
+              input(ng-model="editTable.D" type='number' max='2' min='0')
+          
+          tr(ng-if="rowAfterEditRow")
+            td() {{rowIndex + 2}}
+            td(ng-repeat="cell in rowAfterEditRow") {{cell}}
+            
+  .md-actions(layout="row")
+    md-button(ng-click="cancel()") Cancel
+    md-button.md-primary.md-raised(ng-click="saveEditedRow(editTable)") Save

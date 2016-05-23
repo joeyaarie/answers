@@ -21,8 +21,8 @@
           th() D   
       |     
       tbody()
-        tr(ng-repeat="rows in selectedLookUp.table" ng-click="editThisLookUpTableRow(rows, $index)")
-          td.row-handle()
+        tr(ng-repeat="rows in selectedLookUp.table")
+          td.row-handle( ng-click="editThisLookUpTableRow(rows, $index)")
             i.mdi.mdi-pencil
             span {{$index +1}}
           td(ng-repeat="cell in rows") {{cell}} 
@@ -36,6 +36,6 @@
           |     
           tbody()
             tr(ng-repeat="cell in table.data")
-              td(ng-class="{green: isTrailingOne(table.data, cell, $index), red: cell === 0}") {{cell}} 
+              td(ng-class="{green: isTrailingOne(table.data, cell, $index), red: cell == 0}") {{cell}} 
 
     md-table-pagination(md-limit='query.limit', md-limit-options='[5, 10, 15]', md-page='query.page', md-total='{{desserts.count}}', md-on-paginate='getDesserts', md-page-select='')

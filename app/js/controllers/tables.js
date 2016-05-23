@@ -175,12 +175,30 @@ angular.module('answers.controllers')
       });
     };
 
+    var updateTable = function(data) {
+      delete data.$$mdSelectId;
+      Refs.lookUps.child(currentUserId).child(data.key).set(data, function() {
+        Toast('look up has been updated.')
+      });
+    };
+
     $scope.editThisLookUpTableRow = function(row, index) {
-      $scope.activeTab  = 'lookup-tab';
-      $scope.addPattern = true;
-      $scope.newLookUp  = $scope.selectedLookUp.table[index];
-      $scope.edittingLookUpIndex = index;
-      $scope.edittingLookUp = true;
+      $mdDialog.show({
+        scope: $scope,
+        preserveScope: true,
+        clickOutsideToClose: true,
+        locals: {
+          table : $scope.selectedLookUp,
+          tableRow : row,
+          tableIndex : index
+        },
+        controller: 'editTableCtrl',
+        templateUrl: 'views/modals/edit-table-modal.html',
+        targetEvent: event
+      }).then(function(data) {
+        $scope.selectedLookUp = data;
+        updateTable(data);
+      });
     };
 
     $scope.removeLookUpRow = function(lookup) {
