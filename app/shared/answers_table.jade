@@ -22,7 +22,9 @@
       |     
       tbody()
         tr(ng-repeat="rows in selectedLookUp.table" ng-click="editThisLookUpTableRow(rows, $index)")
-          td() {{$index +1}}
+          td.row-handle()
+            i.mdi.mdi-pencil
+            span {{$index +1}}
           td(ng-repeat="cell in rows") {{cell}} 
     .result-tables(ng-repeat="table in resultsTable")
       .table-lines

@@ -270,7 +270,6 @@ md-toolbar.md-default-theme  {
 
 
 .ans-table {
-  // width: 100%;
   thead {
     tr {
       th {
@@ -283,36 +282,49 @@ md-toolbar.md-default-theme  {
       }
     }
   }
+
   tbody {
+
     tr {
       td {
-        font-size: 0.9em;
         height: 40px;
         padding: 0 15px;
+        font-size: 0.9em;
         border-bottom: 1px solid #efefef;
         font-weight: 400;
-        .mdi {
+        &.row-handle {
+          .mdi {
+            display: none;
+          }
           &:hover {
-            color: green;
+            .mdi {
+              display: inline-block;
+            }
+            span {
+              display: none;
+            }
           }
         }
       }
+
       .green {
         color: #33C748 !important;
       }
+
       .red {
         color: #E12A26 !important;
       }
+
       &:last-child {
         td {
           border-bottom: none;
         }
       }
+
       &:hover {
-        td {
-          background-color: #EEEEEE;
-        }
+        background-color: #EEEEEE;
       }
+
     }
   }
 }
