@@ -54,13 +54,14 @@ Answers.run(['$rootScope', '$state', 'Authentication', 'Refs','Toast',
     });
   };
 
-  $rootScope.$on('$stateChangeStart',
-    function(event, toState, toParams, fromState, fromParams, options) {
-      var states = ['/tables','/login'];
-      if(_.contains(states, toState.url) && !$rootScope.currentUser) {
-        Refs.root.onAuth($rootScope.authCallback);
-      }
-  });
+  Refs.root.onAuth($rootScope.authCallback);
+  // $rootScope.$on('$stateChangeStart',
+  //   function(event, toState, toParams, fromState, fromParams, options) {
+  //     var states = ['/tables','/login'];
+  //     if(_.contains(states, toState.url) && !$rootScope.currentUser) {
+  //       Refs.root.onAuth($rootScope.authCallback);
+  //     }
+  // });
 
 }]);
 

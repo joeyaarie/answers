@@ -1,8 +1,8 @@
 angular.module('answers.controllers')
-  .controller('editTableCtrl', ['$scope', '$mdDialog','Toast','table', 'tableRow', 'tableIndex',
-    function($scope, $mdDialog, Toast, table, tableRow, tableIndex) {
+  .controller('editTableCtrl', ['$scope', '$mdDialog','Toast', 'tableRow', 'tableIndex',
+    function($scope, $mdDialog, Toast,tableRow, tableIndex) {
 
-    var lookUp      = angular.copy(table);
+    var lookUp = angular.copy($scope.selectedLookUp);
     $scope.rowIndex = tableIndex;
     $scope.rowBeforeEditRow = lookUp.table[tableIndex - 1] || null;
     $scope.rowAfterEditRow  = lookUp.table[tableIndex + 1] || null;

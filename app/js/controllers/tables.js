@@ -188,7 +188,6 @@ angular.module('answers.controllers')
         preserveScope: true,
         clickOutsideToClose: true,
         locals: {
-          table : $scope.selectedLookUp,
           tableRow : row,
           tableIndex : index
         },
@@ -230,11 +229,10 @@ angular.module('answers.controllers')
         targetEvent: event
       }).then(function(data) {
 
-        if (data) {
+        if (data)
           Refs.patterns.child(currentUserId).child(data.key).set(data, function() {
             Toast('pattern has been updated.')
           });
-        }
 
       });
     };
@@ -283,8 +281,6 @@ angular.module('answers.controllers')
     };
 
     var saveSessionToDatabase = function(name) {
-      console.log('results table',$scope.resultsTable);
-
       var sessionPatterns = [];
       $scope.resultsTable.forEach(function(Obj) {
         sessionPatterns.push({
