@@ -39,13 +39,13 @@ angular.module('answers.services')
               $state.go('default');
             }
             else {
-              // construct the user record the way we want it
+
               user = self.buildUserObjectFromGoogle(authData);
-              // save it to firebase collection of users
+
               userRef.set(user);
-              // save the current user in the global scope
+
               $rootScope.currentUser = user;
-              // navigate to home page
+
               $state.go('default');
             }
 

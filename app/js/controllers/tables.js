@@ -1,6 +1,6 @@
 angular.module('answers.controllers')
-.controller('TablesCtrl', ['$scope', 'Refs', 'Toast', 'MockData', '$timeout', '$mdDialog',
-  function($scope, Refs, Toast, MockData, $timeout, $mdDialog) {
+.controller('TablesCtrl', ['$scope', 'Refs', 'Toast', 'MockData', '$timeout', '$mdDialog','$rootScope','Authentication',
+  function($scope, Refs, Toast, MockData, $timeout, $mdDialog, $rootScope, Authentication) {
 
     $scope.allPatterns  = [];
     $scope.allSessions  = [];
@@ -12,6 +12,34 @@ angular.module('answers.controllers')
     $scope.showItemDetailEdit = false;
     $scope.allLookUpTables = [];
     $scope.selectedIndex = 0;
+    var currentUserId;
+
+    var saveToScope = function(name, snap) {
+      $timeout(function() {
+        $scope[name]  = _.toArray(
+          keyUpArraysObjects(snap.val())
+        );
+      });
+    };
+
+    $rootScope.$watch('currentUser', function(user) {
+      if (user) {
+        currentUserId = user.uid;
+
+        Refs.patterns.child(currentUserId).on('value', function(snap) {
+          saveToScope('allPatterns', snap);
+        });
+
+        Refs.lookUps.child(currentUserId).on('value', function(snap) {
+          saveToScope('allLookUpTables', snap);
+        });
+
+        Refs.sessions.child(currentUserId).on('value', function(snap) {
+          saveToScope('allSessions', snap);
+        });
+
+      }
+    });
 
     var confirm = $mdDialog.confirm()
       .title('Delete Confirmation')
@@ -47,6 +75,12 @@ angular.module('answers.controllers')
 
     };
 
+    $scope.isTrailingOne = function(row, cell, index) {
+      var trailingOne = cell === row[index + 1] || cell === row[index - 1];
+
+      return trailingOne && parseInt(cell);
+    };
+
     $scope.createLookUpfromJsonData = function(jsonArray, event) {
       $mdDialog.show({
         scope: $scope,
@@ -62,26 +96,6 @@ angular.module('answers.controllers')
     };
 
     $scope.lookUpTable = MockData.getLookUpTable();
-
-    var saveToScope = function(name, snap) {
-      $timeout(function() {
-        $scope[name]  = _.toArray(
-          keyUpArraysObjects(snap.val())
-        );
-      });
-    };
-
-    Refs.patterns.on('value', function(snap) {
-      saveToScope('allPatterns', snap);
-    });
-
-    Refs.lookUps.on('value', function(snap) {
-      saveToScope('allLookUpTables', snap);
-    });
-
-    Refs.sessions.on('value', function(snap) {
-      saveToScope('allSessions', snap);
-    });
 
     // calculate all the pattern that is available
     $scope.calculateAllPatterns = function() {
@@ -150,9 +164,10 @@ angular.module('answers.controllers')
 
     $scope.createPattern = function(newPattern) {
       newPattern.created = Date.now().valueOf();
+      newPattern.userId =  currentUserId;
       $scope.addPattern = false;
 
-      Refs.patterns.push(newPattern, function(error) {
+      Refs.patterns.child(currentUserId).push(newPattern, function(error) {
         if (!error) {
           Toast("Successfully created new answers pattern");
           $scope.calculateOnePattern(newPattern);
@@ -180,7 +195,7 @@ angular.module('answers.controllers')
       confirm.targetEvent(event);
       $mdDialog.show(confirm).then(function(val) {
         if (val) {
-          Refs.patterns.child(pattern.key).remove();
+          Refs.patterns.child(currentUserId).child(pattern.key).remove();
           Toast("deleted successfully");
         }
       });
@@ -198,7 +213,7 @@ angular.module('answers.controllers')
       }).then(function(data) {
 
         if (data) {
-          Refs.patterns.child(data.key).set(data, function() {
+          Refs.patterns.child(currentUserId).child(data.key).set(data, function() {
             Toast('pattern has been updated.')
           });
         }
@@ -217,7 +232,7 @@ angular.module('answers.controllers')
         return;
       }
 
-      Refs.lookUps.push(angular.copy(data), function(error) {
+      Refs.lookUps.child(currentUserId).push(angular.copy(data), function(error) {
         if (!error) {
           Toast("Successfully created look up table");
         }
@@ -243,32 +258,39 @@ angular.module('answers.controllers')
       confirm.targetEvent(event);
       $mdDialog.show(confirm).then(function(val) {
         if (val) {
-          Refs.lookUps.child(table.key).remove();
+          Refs.lookUps.child(currentUserId).child(table.key).remove();
           Toast("deleted successfully");
         }
       });
     };
 
     var saveSessionToDatabase = function(name) {
-      var sessionLookUp = angular.copy($scope.selectedLookUp);
-      delete sessionLookUp.$$mdSelectId;
+      console.log('results table',$scope.resultsTable);
 
-      Refs.sessions.push({
+      var sessionPatterns = [];
+      $scope.resultsTable.forEach(function(Obj) {
+        sessionPatterns.push({
+          name: Obj.name,
+          pattern: Obj.key,
+          userId: currentUserId
+        });
+      });
+
+      Refs.sessions.child(currentUserId).push({
         name: name,
         created: Date.now(),
-        lookUp: sessionLookUp,
-        patterns: angular.copy($scope.resultsTable)
+        userId: currentUserId,
+        patterns: sessionPatterns
       }, function(error) {
 
         if (!error)
           Toast("Successfully created session");
-
       });
     };
 
     $scope.saveSession = function() {
-      if (!$scope.resultsTable.length || !$scope.selectedLookUp) {
-        Toast('please ensure a look up and patterns');
+      if (!$scope.resultsTable.length) {
+        Toast('please ensure loaded patterns');
         return;
       }
 
@@ -288,9 +310,21 @@ angular.module('answers.controllers')
       confirm.targetEvent(event);
       $mdDialog.show(confirm).then(function(val) {
         if (val) {
-          Refs.sessions.child(session.key).remove();
+          Refs.sessions.child(currentUserId).child(session.key).remove();
           Toast("deleted successfully");
         }
+      });
+    };
+
+    $scope.loadSession = function(session) {
+      if (!$scope.selectedLookUp) {
+        Toast("Please select a look up before calculating");
+        return;
+      }
+
+      $scope.resultsTable = [];
+      session.patterns.forEach(function(pattern) {
+        $scope.calculateOnePattern(pattern);
       });
     };
 

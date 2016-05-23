@@ -44,21 +44,22 @@ Answers.run(['$rootScope', '$state', 'Authentication', 'Refs','Toast',
       if(user) {
         //you can redirect a user here to the admin page by checking the service
         Toast('Welcome, ' + user.name + '!');
+        $rootScope.currentUser = user;
       }
       else {
         // logged out
-        Authentication.logout();
-        $state.go('login');
+        $state.go('logout');
       }
     });
   };
 
-  Refs.root.onAuth($rootScope.authCallback);
-
-  // $rootScope.$on('$stateChangeStart',
-  //   function(event, toState, toParams, fromState, fromParams, options){
-  //
-  // });
+  $rootScope.$on('$stateChangeStart',
+    function(event, toState, toParams, fromState, fromParams, options) {
+      var states = ['/tables','/login'];
+      if(_.contains(states, toState.url) && !$rootScope.currentUser) {
+        Refs.root.onAuth($rootScope.authCallback);
+      }
+  });
 
 }]);
 

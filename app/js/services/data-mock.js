@@ -2,40 +2,8 @@ angular.module('answers.services')
   .factory('MockData', ['$mdToast', '$timeout', function($mdToast, $timeout){
     return {
       getLookUpTable: function() {
-        var lookUp = [
-          {
-            'A':0,
-            'B':1,
-            'C':0,
-            'D':0
-          },
-          {
-            'A':0,
-            'B':1,
-            'C':0,
-            'D':0
-          },
-          {
-            'A':0,
-            'B':1,
-            'C':0,
-            'D':0
-          },
-          {
-            'A':1,
-            'B':1,
-            'C':0,
-            'D':1
-          },
-          {
-            'A':0,
-            'B':1,
-            'C':1,
-            'D':1
-          }
-        ];
-        return lookUp;
       },
+
       computeResults: function(data, lookUpTable) {
         var answerPattern = data.pattern;
 
@@ -61,10 +29,8 @@ angular.module('answers.services')
           var condition = angular.isUndefined(value);
           calculatedPattern[j] = condition? 'N' : value;
 
-          if(i === answerPatternArray.length - 1) {
-            i = 0;
-          }
-          else i++;
+          i = (i === answerPatternArray.length - 1)? 0 : i + 1;
+
         }
 
         var resultData = {
@@ -72,17 +38,10 @@ angular.module('answers.services')
           name: data.name,
           data: calculatedPattern
         };
-        // resultData[patternName] = calculatedPattern;
 
-        // this return is used to return just the calculated pattern
-        // this should be commented out in case this is not used.
         return resultData;
-
-        // $timeout(function() {
-        //   $scope.allResults.push(resultData);
-        //   console.log('all results here to see',$scope.allResults);
-        // });
       },
+
       csvToArray: function(strData) {
         var strDelimiter = ",",
             objPattern = new RegExp((
@@ -131,6 +90,49 @@ angular.module('answers.services')
         }
 
         return result;
+      },
+
+      jsonToCsv: function(data, filename, showColumnName, cb) {
+
+        var arrData = data;
+        var csvFile = filename + '\r\n\n';
+
+        if (showColumnName) {
+          var row = "";
+          for(var index in arrData[0]) {
+            row += index + ',';
+          }
+          row = row.slice(0, -1);
+          csvFile += row + '\r\n';
+        }
+
+        for(var i = 0; i < arrData.length; i++) {
+          var row = "";
+          for(var index in arrData[i]) {
+            row += '"' + arrData[i][index] + '",';
+          }
+          row.slice(0, row.length - 1);
+          csvFile += row + '\r\n';
+        }
+
+        if(csvFile == '') {
+          Toast("Something broke Invalid data",true);
+          return;
+        }
+
+        // Generate a file name and download
+        var docName = "";
+        docName += filename.replace(/ /g,"_");
+        var uri = 'data:text/csv;charset=utf-8,' + escape(csvFile);
+        var link = document.createElement("a");
+        link.href = uri;
+        link.style = "visibility:hidden";
+        link.download = docName + ".csv";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        cb(csvFile, filename);
       }
     };
   }]);
