@@ -1,8 +1,0 @@
-[debug] ----------------------------------------------------------------------
-[debug] Command:      /Users/kainos/.nvm/versions/node/v4.2.1/bin/node /Users/kainos/.nvm/versions/node/v4.2.1/bin/firebase deploy
-[debug] Platform:     darwin
-[debug] Node Version: v4.2.1
-[debug] Time:         Mon May 23 2016 11:09:44 GMT+0100 (WAT)
-[debug] ----------------------------------------------------------------------
-[debug] 
-[debug] >>> HTTP REQUEST GET https://admin.firebase.com/firebase/answers-table/token?token=XXX 

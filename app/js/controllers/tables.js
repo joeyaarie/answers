@@ -144,6 +144,8 @@ angular.module('answers.controllers')
         $scope.allPatterns.forEach(function(pattern) {
           $scope.calculateOnePattern(pattern);
         });
+      } else {
+        Toast('please load patterns');
       }
     };
 
@@ -178,7 +180,15 @@ angular.module('answers.controllers')
     var updateTable = function(data) {
       delete data.$$mdSelectId;
       Refs.lookUps.child(currentUserId).child(data.key).set(data, function() {
-        Toast('look up has been updated.')
+        Toast('look up has been updated.');
+        recalculateCurrentTable();
+      });
+    };
+
+    var recalculateCurrentTable = function() {
+      var sessions = extractCurrentPatterns();
+      sessions.forEach(function(pattern) {
+        $scope.calculateOnePattern(pattern);
       });
     };
 
@@ -220,6 +230,8 @@ angular.module('answers.controllers')
     };
 
     $scope.showEditPatternModal = function(item) {
+      // TODO : should not be able to edit a pattern in use
+      
       $mdDialog.show({
         locals: {
           pattern : item
@@ -280,21 +292,25 @@ angular.module('answers.controllers')
       });
     };
 
-    var saveSessionToDatabase = function(name) {
-      var sessionPatterns = [];
+    var extractCurrentPatterns = function() {
+      var resultsPatterns = [];
       $scope.resultsTable.forEach(function(Obj) {
-        sessionPatterns.push({
+        resultsPatterns.push({
           name: Obj.name,
           pattern: Obj.key,
           userId: currentUserId
         });
       });
 
+      return resultsPatterns;
+    };
+
+    var saveSessionToDatabase = function(name) {
       Refs.sessions.child(currentUserId).push({
         name: name,
         created: Date.now(),
         userId: currentUserId,
-        patterns: sessionPatterns
+        patterns: extractCurrentPatterns()
       }, function(error) {
 
         if (!error)
