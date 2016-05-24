@@ -185,7 +185,7 @@ angular.module('answers.controllers')
       });
     };
 
-    var recalculateCurrentTable = function() {
+    var recalculateCurrentTable = function() {alert('this was called');
       var sessions = extractCurrentPatterns();
       sessions.forEach(function(pattern) {
         $scope.calculateOnePattern(pattern);
@@ -231,7 +231,7 @@ angular.module('answers.controllers')
 
     $scope.showEditPatternModal = function(item) {
       // TODO : should not be able to edit a pattern in use
-      
+
       $mdDialog.show({
         locals: {
           pattern : item
@@ -333,6 +333,28 @@ angular.module('answers.controllers')
       }).then(function(name) {
         saveSessionToDatabase(name);
       });
+    };
+
+    $scope.exportTable = function() {
+      var combinedTable = [];
+      $scope.selectedLookUp.table.forEach(function(lookup, index) {
+        var data =  angular.copy(lookup);
+
+        $scope.resultsTable.forEach(function(val, index2) {
+          var nameKey = val.name + ' (' + val.key + ')';
+          data[nameKey] = val.data[index];
+        });
+
+        combinedTable.push(data);
+      });
+
+      MockData.jsonToCsv(
+        combinedTable,
+        $scope.selectedLookUp.name,
+        true,
+        function() {
+          Toast('done exporting');
+        });
     };
 
     $scope.deleteSession = function(session) {
