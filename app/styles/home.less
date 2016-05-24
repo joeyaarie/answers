@@ -123,7 +123,7 @@ md-toolbar.md-default-theme  {
 .table-patterns {
   overflow-x: scroll;
   padding-top: 0.2em;
-  max-height: 300px;
+  max-height: 400px;
   .table-rows {
     &:hover {
       background-color: #eee;
@@ -273,12 +273,15 @@ md-toolbar.md-default-theme  {
 
 
 .ans-table {
+  -webkit-box-shadow: inset 0px 0px 6px 0px rgba(0,0,0,0.1);
+  -moz-box-shadow: inset 0px 0px 6px 0px rgba(0,0,0,0.1);
+  box-shadow: inset 0px 0px 6px 0px rgba(0,0,0,0.1);
   thead {
     tr {
       th {
-        font-size: 0.9em;
+        font-size: 0.5em;
         text-align: center;
-        height: 40px;
+        // height: 40px;
         padding: 0 15px;
         border-bottom: 1px solid #efefef;
         color: #999;
@@ -290,9 +293,9 @@ md-toolbar.md-default-theme  {
 
     tr {
       td {
-        height: 40px;
-        padding: 0 15px;
-        font-size: 0.9em;
+        // height: 30px;
+        padding: 5px;
+        font-size: 0.5em;
         border-bottom: 1px solid #efefef;
         font-weight: 400;
         &.row-handle {
@@ -334,7 +337,7 @@ md-toolbar.md-default-theme  {
 
 #content {
   background-color: #FFFFFF !important;
-  height: 70%;
+  height: 80%;
 }
 
 
@@ -345,7 +348,7 @@ md-toolbar.md-default-theme  {
     text-align: center;
     font-size: 15px;
     color: #fff;
-    padding: 40px 0;
+    padding: 10px 0;
     width: 100%;
     background-color: #607D8B
   }

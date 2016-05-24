@@ -47,30 +47,6 @@ div()
                       i.mdi.mdi-send(ng-click="calculateOnePattern(item)")
                       i.mdi.mdi-pencil(ng-click="showEditPatternModal(item)")
                       i.mdi.mdi-delete(ng-click="deletePattern(item)")
-
-
-          //- md-tab(md-on-select='onTabSelected(tab)', md-on-deselect='announceDeselected(tab)' )
-            md-tab-label Look Up   
-            md-tab-body
-              .lookup-body()
-                .create-new(ng-click="addPattern = !addPattern") 
-                  i.mdi.mdi-plus
-                  | add look up row
-                .newLookUp(layout="column" ng-if="addPattern")
-                  .container(layout="row")
-                    span Row No: {{selectedLookUp.table.length +1}}
-                    label A:
-                    input(ng-model="newLookUp.A" type='number' max='2' min='0')
-                    label B:
-                    input(ng-model="newLookUp.B" type='number' max='2' min='0') 
-                    label C:
-                    input(ng-model="newLookUp.C" type='number' max='2' min='0') 
-                    label D:
-                    input(ng-model="newLookUp.D" type='number' max='2' min='0')
-                  .tools(layout="row" layout-align="center")
-                    md-button.raised(ng-disabled="false" ng-click="updateLookUp(newLookUp)") Save
-                    md-button.raised(ng-if="edittingLookUp" ng-click="removeLookUpRow(newLookUp)") Delete
-                    md-button.raised(ng-click="openNewPatternTray()") Cancel
           
           md-tab(md-on-select='onTabSelected(tab)', md-on-deselect='announceDeselected(tab)' )
             md-tab-label Sessions   

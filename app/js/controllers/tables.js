@@ -338,10 +338,10 @@ angular.module('answers.controllers')
     $scope.exportTable = function() {
       var combinedTable = [];
       $scope.selectedLookUp.table.forEach(function(lookup, index) {
-        var data =  angular.copy(lookup);
+        var data = angular.copy(lookup);
 
         $scope.resultsTable.forEach(function(val, index2) {
-          var nameKey = val.name + ' (' + val.key + ')';
+          var nameKey   = val.name + ' (' + val.key + ')';
           data[nameKey] = val.data[index];
         });
 
