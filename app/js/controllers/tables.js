@@ -78,7 +78,7 @@ angular.module('answers.controllers')
     $scope.isTrailingOne = function(row, cell, index) {
       var trailingOne = cell === row[index + 1] || cell === row[index - 1];
 
-      return trailingOne && parseInt(cell);
+      return trailingOne && parseInt(cell) && parseInt(cell) < 2;
     };
 
     $scope.createLookUpfromJsonData = function(jsonArray, event) {
